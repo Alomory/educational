@@ -1,0 +1,10 @@
+Badli 86.00 A
+Tarmizi 80.00 A
+Faisal 85.00 A
+Maryam 94.00 A
+Fatimah 64.00 C
+Humayraa 85.00 A
+Abdullah 63.00 C
+Luqman 60.00 C
+Zahraa 72.00 B
+Abdurrahman 75.00 B

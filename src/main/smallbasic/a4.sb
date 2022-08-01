@@ -1,0 +1,53 @@
+students["Wanda"] = "BM=30;BI=92;BC=70;MM=54;SC=71;PM=90;"
+students["Tutu"] = "BM=59;BI=31;BC=73;MM=23;SC=64;PM=76;"
+students["Tribikram"] = "BM=82;BI=55;BC=22;MM=88;SC=31;PM=16;"
+students["Folke"] = "BM=68;BI=65;BC=11;MM=75;SC=91;PM=49;"
+students["Fiza"] = "BM=51;BI=61;BC=93;MM=73;SC=82;PM=54;"
+students["Sixta"] = "BM=48;BI=44;BC=89;MM=91;SC=78;PM=58;"
+students["Simon"] = "BM=88;BI=71;BC=87;MM=61;SC=84;PM=34;"
+students["Eddie"] = "BM=15;BI=12;BC=12;MM=20;SC=14;PM=97;"
+
+'Name list
+names = Array.GetAllIndices(students)
+name_count = Array.GetItemCount(names)
+
+'Calculate averages
+For i=1 To name_count
+  sum = 0
+  scores = students[names[i]]
+  subjects = Array.GetAllIndices(scores)
+  subject_count = Array.GetItemCount(scores)
+  For j=1 To subject_count
+    sum = sum + scores[subjects[j]]
+  EndFor
+  averages[i] = Math.Round(sum*100/subject_count)/100
+EndFor
+
+k = Array.GetItemCount(averages) 
+For i=1 To k-1 
+  x = averages[i]
+  For j=i+1 To k
+    y = averages[j]
+    If (x <> y) And (x < y) Then 'decending
+      _ = averages[i]
+      averages[i] = averages[j]
+      averages[j] = _
+      _ = names[i]
+      names[i] = names[j]
+      names[j] = _
+    EndIf
+  EndFor
+EndFor
+
+For i=1 To name_count
+  TextWindow.WriteLine("Name: " + names[i])
+  TextWindow.WriteLine("Scores")
+  scores = students[names[i]]
+  subjects = Array.GetAllIndices(scores)
+  subject_count = Array.GetItemCount(scores)
+  For j=1 To subject_count
+    TextWindow.WriteLine("    " + subjects[j] + ": " + scores[subjects[j]])
+  EndFor
+  TextWindow.WriteLine("Avg: " + averages[i])
+  TextWindow.WriteLine("")
+EndFor

@@ -1,0 +1,347 @@
+'---------- TERMINOLOGY ----------
+
+'none - no return value
+'str - string, lol
+'dict - dictionary, blame python (eg. d['key'] = 'value')
+'list - literal list, usually 1D otherwise specified
+'table - 1D dict list
+
+'LOW LEVEL - "There are lots of things you don't need to know" 
+'TOP LEVEL - meant for end user
+
+'---------- TERMINOLOGY ----------
+
+
+'---------- GENERAL ----------
+
+'font color customization function (str, str -> none)
+'usage: input "bg", "fg"
+bg = ""
+fg = ""
+Sub theme
+  'set font background and foreground color
+  TextWindow.BackgroundColor = bg
+  TextWindow.ForegroundColor = fg
+  TextWindow.Clear()
+EndSub
+
+bg = "blue"
+fg = "white"
+theme()
+
+'line break function (none -> none)
+BR = Text.GetCharacter(10) 'ascii equivalent for "\n" or "\r" idk
+Sub break
+  TextWindow.Write(BR) 
+  'TextWindow.WriteLine() 'alternatively
+EndSub
+
+'---------- GENERAL ----------
+
+
+'---------- READING DATA ----------
+
+'LOW LEVEL
+
+'split function (str, str -> list)
+'input "s", "d"; output "ls"
+s = "" 'string
+d = "" 'delimeter
+Sub split
+  'initialization
+  ls = ""
+  i = 1
+  
+  'split string by delimiter
+  p = Text.GetIndexOf(s, d) 'get "d" position
+  While (p > 0) 'check whether "d" exists
+    ls[i] = Text.GetSubText(s, 1, p-1)
+    i = i + 1
+    s = Text.GetSubTextToEnd(s, p+1) 'substring
+    p = Text.GetIndexOf(s, d) 'get next "d" pos
+  EndWhile
+  ls[i] = s 'last seg.
+EndSub
+
+'csv-like str read function (str -> table)
+'input "s"; output "t"
+s = "" 'string
+Sub readcs 
+  'split string by line break
+  d = BR
+  split()
+  rs = ls 'rows
+  
+  'split str in list by comma
+  For j=1 to Array.GetItemCount(rs)
+    s = rs[j]
+    d = ","
+    split()
+    t[j] = ls
+  EndFor
+EndSub
+
+'list to table converter function (2D-list, list -> table)
+'input "t", "ls"; output "t"
+t = ""
+ls = ""
+Sub toTable
+  _ = ""
+  For i=1 To Array.GetItemCount(t)
+    For j=1 To Array.GetItemCount(ls)
+      _[i][ls[j]] = t[i][j]
+    EndFor
+  EndFor
+  t = _
+EndSub
+
+'TOP LEVEL
+
+'csv-like file read function (str, list -> table|2D-list)
+'usage: input "name", "keys" (optional); output "table"
+name = "" 'file name
+keys = "" 'column labels
+Sub readc
+  'read str from file
+  s = File.ReadContents(Program.Directory+"/"+name)
+  
+  'cast str to table|list
+  readcs()
+  ls = keys
+  toTable()
+  table = t
+EndSub
+
+'---------- READING DATA ----------
+
+
+'---------- SORTING DATA ----------
+
+'LOW LEVEL
+
+'swap function (list, int, int -> list)
+'input "ls", "i", "j"; output "ls"
+ls = "" 'input list
+i = 0 'index 1
+j = 0 'index 2
+Sub swap
+  'swap pos
+  _ = ls[i]
+  ls[i] = ls[j]
+  ls[j] = _
+EndSub
+
+'sort str by key function (table, str -> table)
+'input "table", "key"; output "table"
+table = "" 'table
+key = "" 'col label
+Sub sortStr
+  ls = table
+  k = Array.GetItemCount(table) 
+  For i=1 To k-1 
+    x = ls[i][key]
+    For j=i+1 To k
+      y = ls[j][key]
+      If (x <> y) Then 
+        c = 0
+        cx = 0
+        cy = 0
+        While (cx = cy) 'compare string
+          c = c + 1
+          cx = Text.GetCharacterCode(Text.GetSubText(x,c,1))
+          cy = Text.GetCharacterCode(Text.GetSubText(y,c,1))
+        EndWhile
+        If (cx > cy) Then 'ascending
+          swap()
+        EndIf
+      EndIf
+    EndFor
+  EndFor
+  table = ls
+EndSub
+
+'sort num by key function (table, num -> table)
+'input "table", "key"; output "table"
+table = "" 'table
+key = "" 'col label
+Sub sortNum
+  ls = table
+  k = Array.GetItemCount(table)
+  For i=1 To k-1
+    x = ls[i][key]
+    For j=i+1 To k
+      y = ls[j][key]
+      If (x > y) Then 'ascending
+        swap()
+      EndIf
+    EndFor
+  EndFor
+  table = ls
+EndSub
+
+'---------- SORTING DATA ----------
+
+
+'---------- SHOWING DATA ----------
+
+'CONSTANTS
+SALES_LABEL = "1=SalesDate;2=ItemCode;3=Qty"
+ITEM_LABEL = "1=ItemName;2=ItemCode;3=Qty;4=PriceUnit"
+
+'TOP LEVEL
+
+'table print function (table, str -> none)
+'usage: input "table", "title" (optional)
+table = "" 'table
+title = "" 'table title
+Sub printTable
+  'initialization
+  ls = Array.GetAllIndices(table[1])
+  
+  'print table
+  If (title <> "") then 
+    TextWindow.WriteLine(title)
+  EndIf
+  For i=1 To Array.GetItemCount(table)
+    For j=1 To Array.GetItemCount(ls)
+      l = ls[j]
+      TextWindow.WriteLine(l+": "+table[i][l])
+    EndFor
+    break()
+  EndFor
+  break()
+EndSub
+
+'leftover check function (table, table -> none)
+'input "item", "sales"; output "leftover"
+item = ""
+sales = ""
+Sub checkLeft 'calculate item left after sales
+  leftover = item
+  For i=1 To Array.GetItemCount(sales)
+    code = sales[i]["ItemCode"]
+    k = Array.GetItemCount(leftover)
+    For j=1 To k
+      If code = leftover[j]["ItemCode"] Then
+        leftover[j]["Qty"] = leftover[j]["Qty"] - sales[i]["Qty"]
+        j = k 'break loop, blame sb
+      EndIf
+    EndFor
+  EndFor
+  title = "e. Items (Leftover)" 
+  label = ITEM_LABEL
+  table = leftover 
+  printTable()
+EndSub
+
+'critical item check function (table -> none)
+'assumption: neither "leftover" or "item" is sorted again after stockLeft()
+leftover = ""
+Sub checkCrit
+  TextWindow.WriteLine("item Checking...")
+  For i=1 To Array.GetItemCount(item)
+    code = item[i]["ItemCode"]
+    lStock = leftover[i]["Qty"]
+    cStock = Math.Round(item[i]["Qty"]/3)
+    If lStock = 0 Then
+      TextWindow.WriteLine(item[i]["Name"]+" stockout")
+    ElseIf lStock < 0 Then 'logically impossible, but whatever
+      TextWindow.WriteLine(item[i]["Name"]+" quantum stockout")
+    ElseIf lStock < cStock Then
+      TextWindow.WriteLine(item[i]["Name"]+" stockout soon")
+    EndIf
+  EndFor
+  break()
+EndSub
+
+'---------- SHOWING DATA ----------
+
+
+'a. Read both input files and store the information into the 2D-Array. Your Array format should be FILENAME[Numeric][String]
+name = "ITEMDATA.txt"
+keys = ITEM_LABEL
+readc()
+item = table
+
+name = "SALESDATA.txt"
+keys = SALES_LABEL
+readc()
+sales = table
+
+
+'b. Sort ITEMDATA file according to the ITEMCODE field with ascending order
+table = item
+key = "ItemCode"
+sortStr() 
+item = table
+
+title = "b. Items (Sorted by Code)"
+printTable()
+
+
+'c. Sort SALESDATA file according to the SALESDATE field with ascending order
+table = sales
+key = "SalesDate"
+sortStr()
+sales = table
+
+title = "c. Sales (Sorted by Date)"
+printTable()
+
+
+'d. Generate a report to show the total sales for each Item
+table = sales
+key = "ItemCode"
+sortStr()
+sales = table
+
+k = Array.GetItemCount(sales)
+itemsales = ""
+For i=1 To k
+  code = sales[i]["ItemCode"]
+  if Array.ContainsIndex(itemsales, code) Then 
+    itemsales[code] = itemsales[code] + sales[i]["Qty"]
+  Else
+    itemsales[code] = sales[i]["Qty"]
+  EndIf
+EndFor
+
+TextWindow.WriteLine("d. Sales (Per item)")
+codes = Array.GetAllIndices(itemsales)
+For i=1 To Array.GetItemCount(codes)
+  TextWindow.WriteLine("ItemCode: " + codes[i])
+  TextWindow.WriteLine("SalesQty (total): " + itemsales[codes[i]])
+  TextWindow.Write(BR)
+EndFor
+TextWindow.Write(BR)
+
+
+'e. Generate a report to show the current stock balance
+checkLeft() 'line 219
+checkCrit()
+
+
+'f. Using ITEMCODE field search a record in ITEMDATA array
+userinput = ""
+While userinput <> "EXIT" 
+  TextWindow.Write("ItemCode? (input 'EXIT' to exit) ")
+  userinput = Text.ConvertToUpperCase(TextWindow.Read())
+  If userinput <> "EXIT" Then
+    found = 0
+    k = Array.GetItemCount(leftover)
+    For i=1 To k
+      If userinput = leftover[i]["Itemcode"] then
+        TextWindow.WriteLine("ItemName: " + leftover[i]["ItemName"])
+        TextWindow.WriteLine("ItemCode: " + leftover[i]["ItemCode"])
+        TextWindow.WriteLine("StockQty: " + leftover[i]["Qty"])
+        TextWindow.WriteLine("PriceUnit: " + leftover[i]["PriceUnit"])
+        TextWindow.Write(BR)
+        found = 1 
+        i = k
+      EndIf
+    EndFor
+    If found < 1 then
+      TextWindow.WriteLine("ItemCode not found.")
+    EndIf
+  EndIf
+EndWhile

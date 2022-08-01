@@ -1,0 +1,5 @@
+Apple,F001,30,1
+Durian,F000,5,50
+Coconut,F003,20,5
+Elderberry,F004,10,5
+Banana,F002,10,2

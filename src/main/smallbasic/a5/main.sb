@@ -1,0 +1,145 @@
+'---------- TERMINOLOGY ----------
+
+'none - no return value
+'str - string, lol
+'dict - dictionary, blame python (eg. d['key'] = 'value')
+'list - literal list, usually 1D otherwise specified
+'table - 1D dict list
+
+
+'---------- GENERAL ----------
+
+'font color customization function (str, str -> none)
+'usage: input "bg", "fg"
+bg = ""
+fg = ""
+Sub theme
+  'set font background and foreground color
+  TextWindow.BackgroundColor = bg
+  TextWindow.ForegroundColor = fg
+  TextWindow.Clear()
+EndSub
+
+bg = "blue"
+fg = "white"
+theme()
+
+'line break function (none -> none)
+BR = Text.GetCharacter(10) 'ascii equivalent for "\n" or "\r" idk
+Sub break
+  TextWindow.Write(BR) 
+  'TextWindow.WriteLine() 'alternatively
+EndSub
+
+
+'---------- READING DATA ----------
+
+'LOW LEVEL
+
+'split function (str, str -> list)
+'input "s", "d"; output "ls"
+s = "" 'string
+d = "" 'delimeter
+Sub split
+  'initialization
+  ls = ""
+  i = 1
+  
+  'split string by delimiter
+  p = Text.GetIndexOf(s, d) 'get "d" position
+  While (p > 0) 'check whether "d" exists
+    ls[i] = Text.GetSubText(s, 1, p-1)
+    i = i + 1
+    s = Text.GetSubTextToEnd(s, p+1) 'substring
+    p = Text.GetIndexOf(s, d) 'get next "d" pos
+  EndWhile
+  ls[i] = s 'last seg.
+EndSub
+
+'csv-like str read function (str -> table)
+'input "s"; output "t"
+s = "" 'string
+Sub readcs 
+  'split string by line break
+  d = BR
+  split()
+  rs = ls 'rows
+
+  'split str in list by comma
+  For j=1 to Array.GetItemCount(rs)
+    s = rs[j]
+    d = ","
+    split()
+    t[j] = ls
+  EndFor
+EndSub
+
+'list to table converter function (2D-list, list -> table)
+'input "t", "ls"; output "t"
+t = ""
+ls = ""
+Sub toTable
+  _ = ""
+  For i=1 To Array.GetItemCount(t)
+    For j=1 To Array.GetItemCount(ls)
+      _[i][ls[j]] = t[i][j]
+    EndFor
+  EndFor
+  t = _
+EndSub
+
+'csv-like file read function (str, list -> table|2D-list)
+'usage: input "name", "keys" (optional); output "table"
+name = "" 'file name
+keys = "" 'column labels
+Sub readc
+  'read str from file
+  s = File.ReadContents(Program.Directory+"/"+name)
+  
+  'cast str to table|list
+  readcs()
+  ls = keys
+  toTable()
+  table = t
+EndSub
+
+
+'---------- SHOWING DATA ----------
+
+'CONSTANTS
+ORDER_LABEL = "1=Date;2=Code;3=Qty"
+STOCK_LABEL = "1=Name;2=Code;3=Qty;4=Price"
+
+'table print function (table, str -> none)
+'usage: input "table", "title" (optional)
+table = "" 'table
+title = "" 'table title
+Sub printTable
+  'initialization
+  ls = Array.GetAllIndices(table[1])
+  
+  'print table
+  If (title <> "") then 
+    TextWindow.WriteLine(title)
+  EndIf
+  For i=1 To Array.GetItemCount(table)
+    For j=1 To Array.GetItemCount(ls)
+      l = ls[j]
+      TextWindow.WriteLine(l+": "+table[i][l])
+    EndFor
+    break()
+  EndFor
+  break()
+EndSub
+
+
+'file -> array
+name = "file2.txt"
+keys = STOCK_LABEL
+readc()
+stock = table
+
+'display array
+title = "Stock"
+table = stock
+printTable()

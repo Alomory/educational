@@ -1,0 +1,57 @@
+TextWindow.Clear()
+TextWindow.BackgroundColor = "Blue"
+TextWindow.ForegroundColor = "White"
+
+TextWindow.WriteLine("3a.")
+
+' a. Design a program for MySelf College. 
+'    The current tuition is $15,000 per year, 
+'    and tuition fee is expected to increase by 4 percent each year. 
+'    Display the tuition each year for the next 10 years.
+
+tuition = 15000
+rate = 1.04
+
+for i=1 to 10
+    tuition = tuition * rate
+    l = Text.GetIndexOf(tuition, ".")
+    tuition = Text.GetSubText(tuition, 1, l+2)
+    textwindow.WriteLine("year " + i + ": RM" + tuition)
+endfor
+
+TextWindow.WriteLine("")
+TextWindow.WriteLine("3b.")
+
+' b. Modify the MySelf College program so that the 
+'    user enters the rate of tuition increase instead of having it fixed at 4 percent. 
+'    Display the tuition each year for the next 10 years.
+
+tuition = 15000
+TextWindow.Write("Rate (±%): ")
+rate = 1 + TextWindow.readNumber()/100 'for instance: 5 -> 1.05
+
+for i=1 to 10
+    tuition = tuition * rate
+    l = Text.GetIndexOf(tuition, ".")
+    tuition = Text.GetSubText(tuition, 1, l+2)
+    textwindow.WriteLine("year " + i + ": RM" + tuition)
+endfor
+
+TextWindow.WriteLine("")
+TextWindow.WriteLine("3c.")
+
+' c. Modify the MySelf College program so that the 
+'    user enters the rate of tuition increase for the first year. 
+'    The rate then increases by 0.5 percent each subsequent year.
+
+tuition = 15000
+TextWindow.Write("Rate (±%): ")
+rate = 1 + TextWindow.readNumber()/100 'for instance: 5 -> 1.05
+
+for i=1 to 10
+    tuition = tuition * rate
+    l = Text.GetIndexOf(tuition, ".")
+    tuition = Text.GetSubText(tuition, 1, l+2)
+    textwindow.WriteLine("year " + i + ": RM" + tuition)
+    rate = rate + 0.005
+endfor

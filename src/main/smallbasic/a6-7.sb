@@ -1,0 +1,170 @@
+BR = Text.GetCharacter(10)
+
+'SUBROUTINES
+
+title = ""
+list = ""
+Sub printList
+  TextWindow.WriteLine(title)
+  TextWindow.Write(": ")
+  For i=1 To k
+    TextWindow.Write(list[i])
+    If i < k Then 
+      TextWindow.Write(", ") 
+    EndIf
+  EndFor
+  TextWindow.WriteLine(Text.GetCharacter(10))
+EndSub
+
+Sub getScore 
+  found = 0
+  While found < 1
+    TextWindow.Write("Find score: ")
+    score = TextWindow.Read()
+    If score < 0 And score > 100 Then
+      TextWindow.WriteLine("Invalid score")
+    Else 
+      found = 1 
+    EndIf
+  EndWhile
+EndSub
+
+Sub searchResult
+  If found < 1 Then
+    TextWindow.WriteLine("Value not found" + BR)
+  Else
+    TextWindow.Write("Found on (index): ")
+    l = Array.GetItemCount(index)
+    For i=1 To l
+      TextWindow.Write(index[i])
+      If i < l Then 
+        TextWindow.Write(", ") 
+      EndIf
+    EndFor
+    TextWindow.Write(BR)
+    TextWindow.WriteLine("Took " + trial + " try(s).")
+    TextWindow.Write(BR)
+  EndIf
+EndSub
+
+' LITERALLY EVERYTHING ELSE EBCAUSE WHY NOT
+
+k = 100
+
+' unique list
+'For i=1 To k
+'  scores[i] = i
+'EndFor
+'For i=1 To k
+'  j = Math.GetRandomNumber(k)
+'  _ = scores[i]
+'  scores[i] = scores[j]
+'  scores[j] = _
+'EndFor
+
+For i=1 To k
+  scores[i] = Math.GetRandomNumber(100)
+  'TextWindow.WriteLine(scores[i])
+EndFor
+
+TextWindow.WriteLine("Linear search (unsorted)")
+
+title = "scores"
+list = scores
+printList()
+
+getScore()
+  
+'linear (unsorted)
+found = 0
+j = 1
+For i = 1 To k
+  If scores[i] = score Then
+    found = 1
+    index[j] = i
+    j = j + 1
+  EndIf
+EndFor
+trial = k
+
+searchResult()
+
+'sort
+sorted = scores
+indexes = Array.GetAllIndices(scores)
+
+For i=1 To k-1
+  For j=i+1 To k
+    If (sorted[i] > sorted[j]) Then
+      _ = sorted[i]
+      sorted[i] = sorted[j]
+      sorted[j] = _
+      _ = indexes[i]
+      indexes[i] = indexes[j]
+      indexes[j] = _
+    EndIf
+  EndFor
+EndFor
+
+TextWindow.WriteLine("Linear search (sorted)")
+
+list = sorted
+printList()
+
+getScore()
+
+'linear
+found = 0
+j = 1
+trial = 0
+For i = 1 To k
+  'TextWindow.WriteLine(i)
+  If sorted[i] = score Then 
+    found = 1
+    index[j] = indexes[i]
+    j = j + 1
+  ElseIf found = 1 Then
+    trial = i
+    i = k
+  EndIf
+EndFor
+
+searchResult()
+
+TextWindow.WriteLine("Binary search")
+printList()
+
+getScore()
+
+'binary
+indexes = ""
+found = 0
+min = 1
+max = k
+trial = 0
+While found < 1
+  trial = trial + 1 
+  TextWindow.WriteLine("Step " + trial)
+  TextWindow.WriteLine("Min: " + min)
+  mid = Math.Floor((min + max) / 2)
+  TextWindow.WriteLine("Mid: " + mid)
+  TextWindow.WriteLine("Max: " + max + BR)
+  If sorted[mid] = score Then
+    found = 1
+    indexes[j] = mid
+  ElseIf trial > 10000 Then ' in case bug occur
+    TextWindow.WriteLine("Infinite loop failsafe.")
+    Program.End()
+  Else
+    If sorted[mid] > score Then
+      max = sorted[mid]
+    ElseIf sorted[mid] < score Then
+      min = sorted[mid]
+    EndIf    
+  EndIf
+EndWhile
+'NOTE: There's an infinite loop bug but I don't know where it is, 
+'but since the chances of it happening is less than 1% (simulated 1000 tries),
+'I will just leave it be. 
+  
+searchResult()
