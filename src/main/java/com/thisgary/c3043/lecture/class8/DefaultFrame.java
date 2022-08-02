@@ -1,4 +1,4 @@
-package com.thisgary.c3043.lecture.class6.class13;
+package com.thisgary.c3043.lecture.class8;
 
 import javax.swing.*;
 import java.awt.*;
