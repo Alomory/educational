@@ -3,17 +3,18 @@ package com.thisgary.c3043.lab;
 import com.thisgary.library.ModuleTester;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 class Test extends ModuleTester {
     public Test() {
+        // List all modules
         String path = System.getProperty("user.dir") + "/src/main/java/com/thisgary/c3043/lab/";
         String[] modules = new File(path).list((dir, name) -> new File(dir, name).isDirectory());
         if (modules == null) modules = new String[0];
 
+        // Update module box
         moduleBox.setModel(new DefaultComboBoxModel<>(modules));
         moduleBox.addActionListener(ae -> {
             String module = (String) moduleBox.getSelectedItem();
