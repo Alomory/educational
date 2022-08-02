@@ -1,27 +1,20 @@
 package com.thisgary.c3043.lab;
 
+import com.thisgary.library.ModuleTester;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-class Test extends JFrame {
-    JPanel modulePanel, activityPanel;
-    JComboBox<String> moduleBox;
-    JComboBox<String> activityBox;
-
+class Test extends ModuleTester {
     public Test() {
         String path = System.getProperty("user.dir") + "/src/main/java/com/thisgary/c3043/lab/";
         String[] modules = new File(path).list((dir, name) -> new File(dir, name).isDirectory());
         if (modules == null) modules = new String[0];
 
-        Container container = getContentPane();
-        container.setLayout(new FlowLayout());
-
-        modulePanel = new JPanel();
-        modulePanel.add(new JLabel("Lab Module"));
-        moduleBox = new JComboBox<>(modules);
+        moduleBox.setModel(new DefaultComboBoxModel<>(modules));
         moduleBox.addActionListener(ae -> {
             String module = (String) moduleBox.getSelectedItem();
             String[] classes = new File(path + module).list();
@@ -40,12 +33,6 @@ class Test extends JFrame {
             activityBox.setModel(model);
         });
 
-        modulePanel.add(moduleBox);
-        container.add(modulePanel);
-
-        activityPanel = new JPanel();
-        activityPanel.add(new JLabel("Activity"));
-        activityBox = new JComboBox<>();
         activityBox.addActionListener(ae -> {
             String module = (String) moduleBox.getSelectedItem();
             String test = (String) activityBox.getSelectedItem();
@@ -57,12 +44,6 @@ class Test extends JFrame {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
-        activityPanel.add(activityBox);
-        container.add(activityPanel);
-
-        setSize(400, 200);
-        setVisible(true);
     }
 
     public static void main(String[] args) {

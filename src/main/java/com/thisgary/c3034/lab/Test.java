@@ -1,19 +1,15 @@
 package com.thisgary.c3034.lab;
 
 import com.thisgary.library.Dumpster;
+import com.thisgary.library.ModuleTester;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Objects;
 
-class Test extends JFrame {
-    JPanel modulePanel, activityPanel;
-    JComboBox<String> moduleBox;
-    JComboBox<String> activityBox;
-
+class Test extends ModuleTester {
     public Test() {
         // List all modules
         String path = System.getProperty("user.dir") + "/src/main/java/com/thisgary/c3034/lab/";
@@ -24,12 +20,8 @@ class Test extends JFrame {
                         .map(s -> s.substring(6, s.length() - 5))
                         .toArray(String[]::new);
 
-        Container container = getContentPane();
-        container.setLayout(new FlowLayout());
-
-        modulePanel = new JPanel();
-        modulePanel.add(new JLabel("Lab Module"));
-        moduleBox = new JComboBox<>(ms);
+        // Update module box
+        moduleBox.setModel(new DefaultComboBoxModel<>(ms));
         moduleBox.addActionListener(ae -> {
             String m = (String) moduleBox.getSelectedItem();
             try {
@@ -45,6 +37,7 @@ class Test extends JFrame {
                         .sorted()
                         .toArray(String[]::new);
 
+                // Update activity box
                 DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(activities);
                 activityBox.setModel(model);
             } catch (ClassNotFoundException e) {
@@ -52,12 +45,6 @@ class Test extends JFrame {
             }
         });
 
-        modulePanel.add(moduleBox);
-        container.add(modulePanel);
-
-        activityPanel = new JPanel();
-        activityPanel.add(new JLabel("Activity"));
-        activityBox = new JComboBox<>();
         activityBox.addActionListener(ae -> {
             String m = (String) moduleBox.getSelectedItem();
             String t = (String) activityBox.getSelectedItem();
@@ -67,12 +54,6 @@ class Test extends JFrame {
                 JOptionPane.showMessageDialog(null, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
-        activityPanel.add(activityBox);
-        container.add(activityPanel);
-
-        setSize(400, 200);
-        setVisible(true);
     }
 
     public static void main(String[] args) {
