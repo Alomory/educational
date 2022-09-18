@@ -1,6 +1,4 @@
-# Educational
-
-Generally assignments.
+Generally assignments
 
 ## Structure
 
