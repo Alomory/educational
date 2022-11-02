@@ -5,15 +5,15 @@ Generally assignments
 ## Structure
 
 ```
-Educational/src/main/
-├── java
-│   ├── c3034
-│   │   ├── lab
-│   │   ├── lecture
-│   │   ├── project
+Educational/src/main/ 
+├── java 
+│   ├── c3034 
+│   │   ├── lab 
 │   │   └── ... 
 │   └── ... 
-└── ...
+├── html 
+│   └── ... 
+└── ... 
 ```
 
 The project is structured in a hierarchy.
