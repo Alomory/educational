@@ -52,5 +52,7 @@ public class Arithmetic {
 
         System.out.printf("\nAddition is %d\n", arithmetic.addition());
         System.out.printf("Difference is %d\n", arithmetic.subtraction());
+
+        scanner.close();
     }
 }

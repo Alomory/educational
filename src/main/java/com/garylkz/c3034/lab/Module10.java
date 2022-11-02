@@ -1,6 +1,5 @@
 package com.garylkz.c3034.lab;
 
-import com.garylkz.library.Dumpster;
 import com.garylkz.library.GetNumber;
 
 import java.io.File;

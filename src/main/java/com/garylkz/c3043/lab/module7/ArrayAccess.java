@@ -111,6 +111,10 @@ public class ArrayAccess extends JFrame {
                 null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    public JTextField getRetrieveIndexField() {
+        return retrieveIndexField;
+    }
+
     //execute application
     public static void main(String args[]) {
         ArrayAccess application = new ArrayAccess();

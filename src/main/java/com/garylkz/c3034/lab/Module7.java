@@ -93,13 +93,13 @@ public class Module7 {
                     "January", "February", "March", "April", "May", "June", "July",
                     "August", "September", "October", "November", "December"
             };
-            int _, a, u, m; // *, 20, 15, 12
-            _ = a = 1;
+            int _a, a, u, m; // *, 20, 15, 12
+            _a = a = 1;
             StringBuilder sb = new StringBuilder();
             do {
                 sb.append("-");
-                _++;
-            } while (_ <= 134);
+                _a++;
+            } while (_a <= 134);
             final String ___ = sb.toString();
             final String template = sb
                     .append(___ + "\n")

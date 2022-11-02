@@ -44,5 +44,6 @@ public class NumberChecker {
 
         NumberChecker nc = new NumberChecker(stringNumber, intNumber);
         nc.overview();
+        s.close();
     }
 }

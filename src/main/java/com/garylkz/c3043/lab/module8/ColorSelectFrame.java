@@ -13,7 +13,7 @@ public class ColorSelectFrame extends JFrame {
         super("I don't know what is this");
         setLayout(new BorderLayout());
 
-        color = new JComboBox();
+        color = new JComboBox<String>();
         color.addItem("RED");
         add(color, BorderLayout.NORTH);
 

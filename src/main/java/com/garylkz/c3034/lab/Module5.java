@@ -84,6 +84,7 @@ public class Module5 {
         System.out.println("Minimum balance: RM" + rm.format(min));
         System.out.println("Account balance: RM" + rm.format(bal));
         System.out.println("Account balance (new): RM" + rm.format(nbal));
+        s.close();
     }
 
     public static void activity4() {
@@ -203,5 +204,6 @@ public class Module5 {
 
         price = 30 + ((wood == 1) ? 15 : 10) + ((length > 6) ? (length - 6) * 3 : 0) + ((color == 1) ? 0 : 15);
         System.out.println("Total charge for " + name + ": RM" + price);
+        s.close();
     }
 }

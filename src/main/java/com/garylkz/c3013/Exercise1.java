@@ -33,6 +33,7 @@ public class Exercise1 {
 			math_avg += r.subjects[0].score;
 		math_avg /= results.length;
 		System.out.printf("\nMath Average: %s\n", math_avg);
+		s.close();
 	}
 }
 

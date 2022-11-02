@@ -19,6 +19,10 @@ public class Currency {
         this.pound = myr / 4.320;
     }
 
+    public double getMyr() {
+        return myr;
+    }
+
     public double getPound() {
         return pound;
     }

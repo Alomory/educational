@@ -86,12 +86,12 @@ public class Module6 {
                 "January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"
         };
-        int _, a, u, m; // *, 20, 15, 12
-        _ = a = 1;
+        int _a, a, u, m; // *, 20, 15, 12
+        _a = a = 1;
         StringBuilder sb = new StringBuilder();
-        while (_ <= 134) {
+        while (_a <= 134) {
             sb.append("-");
-            _++;
+            _a++;
         }
         final String ___ = sb.toString();
         final String template = sb

@@ -10,17 +10,21 @@ public class GetNumber {
     // From console
     public static Number scan(String question, String onError, Function<Number, Boolean> rules) {
         Scanner s = new Scanner(System.in);
-        NumberGetter ng = new NumberGetter() {
-            public String getString(String question) {
-                System.out.print(question);
-                return s.nextLine();
-            }
+        try {
+            NumberGetter ng = new NumberGetter() {
+                public String getString(String question) {
+                    System.out.print(question);
+                    return s.nextLine();
+                }
 
-            public void onError(Exception e) {
-                System.out.println(onError);
-            }
-        };
-        return ng.get(question, rules);
+                public void onError(Exception e) {
+                    System.out.println(onError);
+                }
+            };
+            return ng.get(question, rules);
+        } finally {
+            s.close();
+        }
     }
 
     public static Number scan(String question, String onError) {

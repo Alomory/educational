@@ -55,6 +55,7 @@ public class Module2 {
                 System.out.print("Engine still up (true/false)? ");
                 Scanner t = new Scanner(System.in);
                 engineStarted = Boolean.parseBoolean(t.nextLine());
+                t.close();
             }
         }
         System.out.println("Car stopped.");

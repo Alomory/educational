@@ -28,5 +28,6 @@ public class Exercise2 {
 		System.out.printf("Seat: %s\nDate: %s\nTime: %s\n" + 
 				"From: %s\nDestination: %s\n", 
 				seat, date, time, start, goal);
+		s.close();
 	}
 }

@@ -37,11 +37,11 @@ public class Transaction {
         this.whoThis = whoThis;
         this.accountNumber = accountNumber;
         this.transactionType = transactionType;
-        this.transactionNumber += 1;
+        transactionNumber += 1;
         if (transactionType == 'D') {
-            this.balance += amount;
+            balance += amount;
         } else if (transactionType == 'W') {
-            this.balance -= amount;
+            balance -= amount;
         }
     }
 

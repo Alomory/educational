@@ -39,10 +39,19 @@ public class NumberScanner implements NumberGetter {
         this.rules = rules;
     }
 
+    public boolean getPersistent() {
+        return persistent;
+    }
+
     // Interface methods
     public String getString(String question) {
-        System.out.print(question);
-        return new Scanner(System.in).nextLine();
+        Scanner s = new Scanner(System.in);
+        try {
+            System.out.print(question);
+            return s.nextLine();
+        } finally {
+            s.close();
+        }
     }
 
     public void onError(Exception e) {

@@ -36,9 +36,11 @@ public class GradeBook {
     }
 
     public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
         GradeBook gradeBook = new GradeBook();
         System.out.print("Please enter the course name: ");
-        gradeBook.setCourseName(new Scanner(System.in).nextLine());
+        gradeBook.setCourseName(s.nextLine());
         gradeBook.displayMessage();
+        s.close();
     }
 }
