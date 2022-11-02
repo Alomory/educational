@@ -1,3 +1,5 @@
+package com.garylkz.c3013.lab1;
+
 public class Task1 {
 	public static void main(String[] args) {
 		Rectangle rectangle = new Rectangle(6, 9);

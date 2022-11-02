@@ -1,3 +1,5 @@
+package com.garylkz.c3013.lab1;
+
 public class Task2 {
 	public static void main(String[] args) {
 		Fan fan0 = new Fan();
