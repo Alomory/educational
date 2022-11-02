@@ -16,8 +16,6 @@ Educational/src/main/
 └── ... 
 ```
 
-The project is structured in a hierarchy.
-
 ## Java 
 
 Usually, running `Test.java` will do the job, unless otherwise specified. 
