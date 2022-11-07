@@ -1,0 +1,44 @@
+<html> 
+    <head> 
+        <title>Register</title> 
+    </head> 
+    <body> 
+        <form name="frmReg" action="process.php" method="get"> 
+            <table border="1" cellpadding="2" cellspacing="2"> 
+                <tr> 
+                    <td colspan="2" rowspan="1"> Form </td>
+                </tr> 
+                <tr> 
+                    <td> Name: </td> 
+                    <td> <input maxlength="40" size="50" name="name"> </td> 
+                </tr>
+                <tr> 
+                    <td> Age: </td> 
+                    <td> &nbsp; <input maxlength="2" size="2" name="age"> Years </td> 
+                </tr>
+                <tr> 
+                    <td> Sex: </td>
+                    <td> 
+                        <input name="sex" value="male" type="radio"> Male &nbsp; 
+                        <input name="sex" value="fem" type="radio"> Female 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td> Language </td> 
+                    <td> 
+                        <input name="lang" value="en" type="checkbox"> English 
+                        <input name="lang" value="in" type="checkbox"> Indian
+                        <input name="lang" value="ch" type="checkbox"> Chinese 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td></td> 
+                    <td>
+                        <input name="clear" value="clear" type="reset"> &nbsp; 
+                        <input name="submit" value="submit" type="submit">
+                    </td> 
+                </tr>  
+            </table>
+        </form>
+    </body>
+</html>
