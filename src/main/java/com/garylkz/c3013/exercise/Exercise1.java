@@ -1,4 +1,4 @@
-package com.garylkz.c3013;
+package com.garylkz.c3013.exercise;
 
 import java.util.Scanner;
 import java.util.Arrays;
