@@ -1,3 +1,5 @@
+package com.garylkz.c3013.lab2;
+
 class Node {
 	Object element;
 	Node next;
