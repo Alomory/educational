@@ -1,15 +1,15 @@
-// package com.garylkz.c3013.lab2;
+package com.garylkz.c3013.lab2;
 
-class Node {
-	Object element;
-	Node next;
+class Node2 {
+	String element;
+	Node2 next;
 
-	public Node() {
+	public Node2() {
 		next = null;
 	}
 
-	public Node(Object o) {
-		element = o;
+	public Node2(String s) {
+		element = s;
 		next = null;
 	}
 
@@ -19,20 +19,20 @@ class Node {
 }
 
 class MyLinkedList {
-	Node head, tail;
+	Node2 head, tail;
 
 	public MyLinkedList() {
 		head = null;
 		tail = null;
 	}
 
-	public void addFirst(Node e) {
+	public void addFirst(Node2 e) {
 		if (head != null && head.next == null) tail = head; // If head is the only node in list
 		e.next = head;
 		head = e;
 	}
 
-	public Node deleteFirst() {
+	public Node2 deleteFirst() {
 		try {
 			return head;
 		} finally {
@@ -41,26 +41,26 @@ class MyLinkedList {
 		}
 	}
 
-	public void addLast(Node e) {
+	public void addLast(Node2 e) {
 		tail.next = e;
 		tail = e;
 	}
 
-	public Node deleteLast() {
+	public Node2 deleteLast() {
 		try { 
 			return tail;
 		} finally {
-			Node t = head;
+			Node2 t = head;
 			while (t.next != tail) t = t.next;
 			t.next = null;
 			tail = t;
 		}
 	}
 
-	public void add(int index, Node e) {
+	public void add(int index, Node2 e) {
 		if (index < 0) addFirst(e);
 		else {
-			Node t = head;
+			Node2 t = head;
 			for (int i = 0; i < index; i++) t = t.next;
 			e.next = t.next;
 			t.next = e;
@@ -69,7 +69,7 @@ class MyLinkedList {
 
 	public void printList() {
 		System.out.print("List: ");
-		Node t = head;
+		Node2 t = head;
 		while (t.next != null) {
 			System.out.print(t + ", ");
 			t = t.next;
@@ -78,14 +78,14 @@ class MyLinkedList {
 	}
 
 	public void reverse() {
-		Node e = deleteLast(), t = null;
+		Node2 e = deleteLast(), t = null;
 		while (head.next != null) {
 			t = e;
 			while (t.next != null) t = t.next;
 			t.next = deleteLast();
 		}
 		tail = t.next;
-		Node h = head;
+		Node2 h = head;
 		h.next = null;
 		addLast(h);
 		head = e;
@@ -95,20 +95,20 @@ class MyLinkedList {
 public class Task2 {
 	public static void main(String[] args) {
 		MyLinkedList l = new MyLinkedList();
-		l.addFirst(new Node("a"));
-		l.addFirst(new Node("b"));
-		l.addFirst(new Node("c"));
-		l.addFirst(new Node("d"));
-		l.addFirst(new Node("e"));
+		l.addFirst(new Node2("a"));
+		l.addFirst(new Node2("b"));
+		l.addFirst(new Node2("c"));
+		l.addFirst(new Node2("d"));
+		l.addFirst(new Node2("e"));
 		l.printList();
 
 		l.deleteLast();
 		l.printList();
 
-		l.add(1, new Node("f"));
+		l.add(1, new Node2("f"));
 		l.printList();
 
-		l.addLast(new Node("g"));
+		l.addLast(new Node2("g"));
 		l.printList();
 
 		l.deleteFirst();
