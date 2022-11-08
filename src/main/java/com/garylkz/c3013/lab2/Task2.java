@@ -1,4 +1,4 @@
-package com.garylkz.c3013.lab2;
+// package com.garylkz.c3013.lab2;
 
 class Node {
 	Object element;
@@ -27,8 +27,8 @@ class MyLinkedList {
 	}
 
 	public void addFirst(Node e) {
+		if (head != null && head.next == null) tail = head; // If head is the only node in list
 		e.next = head;
-		if (head != null && head.next == null) tail = head;
 		head = e;
 	}
 
@@ -37,7 +37,7 @@ class MyLinkedList {
 			return head;
 		} finally {
 			head = head.next;
-			if (head.next == null) tail = null;
+			if (head.next == null) tail = null; // If new head is the last node in list
 		}
 	}
 
@@ -50,46 +50,45 @@ class MyLinkedList {
 		try { 
 			return tail;
 		} finally {
-			Node e = head;
-			while (e.next != tail) e = e.next;
-			e.next = null;
-			tail = e;
+			Node t = head;
+			while (t.next != tail) t = t.next;
+			t.next = null;
+			tail = t;
 		}
 	}
 
 	public void add(int index, Node e) {
-		Node t = head;
-		for (int i = 0; i < index-1; i++) {
-			t = t.next;
+		if (index < 0) addFirst(e);
+		else {
+			Node t = head;
+			for (int i = 0; i < index; i++) t = t.next;
+			e.next = t.next;
+			t.next = e;
 		}
-		e.next = t.next;
-		t.next = e;
 	}	
 
-
 	public void printList() {
-		Node e = head;
 		System.out.print("List: ");
-		while (e.next != null) {
-			System.out.print(e + ", ");
-			e = e.next;
+		Node t = head;
+		while (t.next != null) {
+			System.out.print(t + ", ");
+			t = t.next;
 		}
-		System.out.println(e);
+		System.out.println(t);
 	}
-	
+
 	public void reverse() {
-		Node e = deleteLast();
-		Node f = e;
+		Node e = deleteLast(), t = null;
 		while (head.next != null) {
-			f = e;
-			while (f.next != null) f = f.next;
-			f.next = deleteLast();
+			t = e;
+			while (t.next != null) t = t.next;
+			t.next = deleteLast();
 		}
-		tail = f.next;
-		Node g = head;
-		g.next = null;
+		tail = t.next;
+		Node h = head;
+		h.next = null;
+		addLast(h);
 		head = e;
-		addLast(g);
 	}
 }
 
