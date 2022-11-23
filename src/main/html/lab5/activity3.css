@@ -1,0 +1,17 @@
+body {
+    font-size: 20px
+}
+
+h1 {
+    font-size: 3em
+}
+
+a:hover {
+    color: black;
+    font-size: 150%
+}
+
+a:active {
+    color: green
+}
+
