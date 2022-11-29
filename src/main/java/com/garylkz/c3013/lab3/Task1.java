@@ -21,7 +21,7 @@ public class Task1 {
         stack = new char[size]; 
     } 
 
-    void push(char data) { 
+    public void push(char data) { 
         top++; 
         stack[top]=data;  
     } 
