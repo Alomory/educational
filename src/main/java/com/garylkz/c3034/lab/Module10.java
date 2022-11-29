@@ -1,6 +1,6 @@
 package com.garylkz.c3034.lab;
 
-import com.garylkz.library.GetNumber;
+import com.garylkz.library.NumberScanner;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -98,7 +98,7 @@ public class Module10 {
         FileWriter fw = new FileWriter("./src/output.txt");
         fw.write("Headmaster didn't pay me enough :(\n" + lazy[0] + "\n" + lazy[1]);
         fw.close();
-        GetNumber.scanInt("Check the file at ./assets/txt/output.txt");
+        NumberScanner.scanInt("Check the file at ./assets/txt/output.txt");
         f.delete();
     }
 }

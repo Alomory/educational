@@ -1,7 +1,7 @@
 package com.garylkz.c3034.project;
 
 import com.garylkz.library.Dumpster;
-import com.garylkz.library.GetNumber;
+import com.garylkz.library.NumberScanner;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -119,7 +119,7 @@ public class Main {
             do {
                 board = fill();
                 render(board);
-                roll = GetNumber.scanInt("Re-roll board? (0: No) ");
+                roll = NumberScanner.scanInt("Re-roll board? (0: No) ");
             } while (roll != 0);
 
             int[][] gameBoard = board.clone();
@@ -130,9 +130,9 @@ public class Main {
                 render(gameBoard);
                 int x, y, v;
                 Function<Number, Boolean> inRange = (Number i) -> (int) i > -1 && (int) i < 10;
-                x = GetNumber.scan("Row? ", "1 - 9 only", inRange).intValue();
-                y = GetNumber.scan("Column? ", "1 - 9 only", inRange).intValue();
-                v = GetNumber.scan("Value? ", "1 - 9 only", inRange).intValue();
+                x = NumberScanner.scan("Row? ", "1 - 9 only", inRange).intValue();
+                y = NumberScanner.scan("Column? ", "1 - 9 only", inRange).intValue();
+                v = NumberScanner.scan("Value? ", "1 - 9 only", inRange).intValue();
                 if (board[x][y] > 0) System.out.println("Can't change preset values.");
                 else {
                     gameBoard[x][y] = v;
@@ -145,7 +145,7 @@ public class Main {
             System.out.println("Congrats! You solved the puzzle!");
 
             // end-game
-            newGame = GetNumber.scanInt("New game? (0: No) ");
+            newGame = NumberScanner.scanInt("New game? (0: No) ");
         } while (newGame != 0);
     }
 }

@@ -39,10 +39,10 @@ public class Dumpster {
     }
 
     public static double[] scanDoubleArray(String question, String subQuestion) {
-        int i = GetNumber.scanInt(question), j = 0;
+        int i = NumberScanner.scanInt(question), j = 0;
         double[] ds = new double[i];
         while (j < i) {
-            ds[j] = GetNumber.scanDouble(subQuestion + ++j + ": ");
+            ds[j] = NumberScanner.scanDouble(subQuestion + ++j + ": ");
         }
         return ds;
     }

@@ -1,6 +1,6 @@
 package com.garylkz.c3043.lab.module7;
 
-import com.garylkz.library.GetNumber;
+import com.garylkz.library.NumberScanner;
 
 import javax.swing.*;
 
@@ -36,8 +36,8 @@ public class Division {
 
     public static void main(String[] args) {
         // Activity 1
-//        int x = GetNumber.jopInt("Enter a number: ", "Input");
-//        int y = GetNumber.jopInt("Enter another number: ", "Input");
+//        int x = NumberScanner.jopInt("Enter a number: ", "Input");
+//        int y = NumberScanner.jopInt("Enter another number: ", "Input");
 //        Division d = new Division(x, y);
 //        JOptionPane.showMessageDialog(null, d, "Division", JOptionPane.PLAIN_MESSAGE);
 
@@ -45,8 +45,8 @@ public class Division {
         boolean tryThis = true;
         int i = 0;
         while (tryThis) {
-            int x = GetNumber.jopInt("Enter a number: ", "Input");
-            int y = GetNumber.jopInt("Enter another number: ", "Input");
+            int x = NumberScanner.jopInt("Enter a number: ", "Input");
+            int y = NumberScanner.jopInt("Enter another number: ", "Input");
             Division d = new Division(x, y);
             try {
                 JOptionPane.showMessageDialog(

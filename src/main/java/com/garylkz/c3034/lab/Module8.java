@@ -1,22 +1,22 @@
 package com.garylkz.c3034.lab;
 
 import com.garylkz.library.Dumpster;
-import com.garylkz.library.GetNumber;
+import com.garylkz.library.NumberScanner;
 
 import java.util.Arrays;
 
 public class Module8 {
     public static void activity1() {
         int[] i = new int[5];
-        for (int j = 0; j < 5; j++) i[j] = GetNumber.scanInt("Input " + (j + 1) + ": ");
+        for (int j = 0; j < 5; j++) i[j] = NumberScanner.scanInt("Input " + (j + 1) + ": ");
         System.out.println(Arrays.toString(i));
         System.out.println("Max: " + Arrays.stream(i).max().getAsInt());
     }
 
     public static void activity2() {
-        int i = GetNumber.scanInt("Number of students: ");
+        int i = NumberScanner.scanInt("Number of students: ");
         int[] scores = new int[i];
-        for (int k = 0; k < i; k++) scores[k] = GetNumber.scanInt("Student " + (k + 1) + " score: ");
+        for (int k = 0; k < i; k++) scores[k] = NumberScanner.scanInt("Student " + (k + 1) + " score: ");
         int[] scores_ = scores.clone();
         Arrays.sort(scores_);
         int best = scores_[scores.length - 1];
@@ -54,8 +54,8 @@ public class Module8 {
         double[][] months = new double[2][12];
         for (int i = 0; i < 12; i++) {
             System.out.println("Month " + (i + 1));
-            months[0][i] = GetNumber.scanDouble("Highest temperature: ");
-            months[1][i] = GetNumber.scanDouble("Lowest temperature: ");
+            months[0][i] = NumberScanner.scanDouble("Highest temperature: ");
+            months[1][i] = NumberScanner.scanDouble("Lowest temperature: ");
         }
         System.out.println("Hottest hot: " + Arrays.stream(months[0]).max() + "C");
         System.out.println("Coldest cold: " + Arrays.stream(months[1]).min() + "C");

@@ -1,6 +1,6 @@
 package com.garylkz.c3034.lab;
 
-import com.garylkz.library.GetNumber;
+import com.garylkz.library.NumberScanner;
 import com.garylkz.library.Roast;
 
 import java.util.Scanner;
@@ -17,7 +17,7 @@ public class Module2 {
         for (int i = 0; i < 3; i++) {
             double score;
             do {
-                score = GetNumber.scanDouble("Score " + (i + 1) + ": ");
+                score = NumberScanner.scanDouble("Score " + (i + 1) + ": ");
                 if (score > 100 || score < 0) {
                     System.out.println("Not valid score.");
                 } else {
@@ -42,7 +42,7 @@ public class Module2 {
         boolean engineStarted = true;
         double mph0 = 0, mph, dMph, kmh;
         while (engineStarted) {
-            mph = GetNumber.scanDouble("M/H (below 130)? ");
+            mph = NumberScanner.scanDouble("M/H (below 130)? ");
             if (mph > 0) {
                 dMph = Math.abs(mph - mph0);
                 boolean inc10 = (dMph >= 10), b130 = (mph <= 130);

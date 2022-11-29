@@ -1,7 +1,7 @@
 package com.garylkz.c3034.lab;
 
 import com.garylkz.library.Dumpster;
-import com.garylkz.library.GetNumber;
+import com.garylkz.library.NumberScanner;
 import com.garylkz.library.Roast;
 
 import javax.swing.JOptionPane;
@@ -22,7 +22,7 @@ public class Module5 {
     public static void activity2() {
         int s;
         do {
-            s = GetNumber.scanInt("Sales: RM");
+            s = NumberScanner.scanInt("Sales: RM");
             if (s < 0) {
                 System.out.println("Impossible.");
             }
@@ -43,7 +43,7 @@ public class Module5 {
         char t;
 
         do { //TODO:Redundancy
-            id = GetNumber.scanInt("Account number? ");
+            id = NumberScanner.scanInt("Account number? ");
             c = id < 1;
             if (c) r.print("Invalid account number.");
         } while (c);
@@ -61,13 +61,13 @@ public class Module5 {
         } while (c);
 
         do {
-            min = GetNumber.scanInt("Minimum balance? RM");
+            min = NumberScanner.scanInt("Minimum balance? RM");
             c = min < 1;
             if (c) r.print("The bank would go bankrupt.");
         } while (c);
 
         do {
-            bal = GetNumber.scanInt("Current balance? RM");
+            bal = NumberScanner.scanInt("Current balance? RM");
             c = bal < 1;
             if (c) r.print("Impossible.");
         } while (c);
@@ -167,16 +167,16 @@ public class Module5 {
             System.out.println("Wood type");
             System.out.println("1 - Oak");
             System.out.println("2 - Mahogany");
-            return GetNumber.scanInt("Choice (by index)? ");
+            return NumberScanner.scanInt("Choice (by index)? ");
         };
 
-        Supplier<Integer> getLength = () -> GetNumber.scanInt("Number of characters? ");
+        Supplier<Integer> getLength = () -> NumberScanner.scanInt("Number of characters? ");
 
         Supplier<Integer> getColor = () -> {
             System.out.println("Color");
             System.out.println("1 - Black & White");
             System.out.println("2 - gold-leaf lettering");
-            return GetNumber.scanInt("Choice (by index)? ");
+            return NumberScanner.scanInt("Choice (by index)? ");
         };
 
         name = getName.get();

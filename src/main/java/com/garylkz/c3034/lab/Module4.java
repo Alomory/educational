@@ -1,7 +1,7 @@
 package com.garylkz.c3034.lab;
 
 import com.garylkz.library.Dumpster;
-import com.garylkz.library.GetNumber;
+import com.garylkz.library.NumberScanner;
 
 import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
@@ -13,8 +13,8 @@ public class Module4 {
     public static void activity1() {
         Function<Integer, Integer> p = (i) -> (int) Math.pow(i, 2); //i*i;
 
-        int i1 = GetNumber.scanInt("First number: ");
-        int i2 = GetNumber.scanInt("Second number: ");
+        int i1 = NumberScanner.scanInt("First number: ");
+        int i2 = NumberScanner.scanInt("Second number: ");
         final String sqr = "Square of %s: %s%n";
         int p1 = p.apply(i1);
         int p2 = p.apply(i2);
@@ -26,7 +26,7 @@ public class Module4 {
     }
 
     public static void activity2() {
-        double r = GetNumber.jop(
+        double r = NumberScanner.jop(
                 "Radius?",
                 "Activity 2",
                 "Float only"
@@ -100,10 +100,10 @@ public class Module4 {
 
     public static void activity5() {
         final String a5 = "Activity 5";
-        double d = GetNumber.jopInt("Distance in meter(s)", a5);
-        double h = GetNumber.jopInt("Hour(s)", a5);
-        double m = GetNumber.jopInt("Minute(s)", a5);
-        double s = GetNumber.jopInt("Second(s)", a5);
+        double d = NumberScanner.jopInt("Distance in meter(s)", a5);
+        double h = NumberScanner.jopInt("Hour(s)", a5);
+        double m = NumberScanner.jopInt("Minute(s)", a5);
+        double s = NumberScanner.jopInt("Second(s)", a5);
         double S = h * 60 * 60 + m * 60 + s;
         double mps = d / S;
         double km = d / 1000;
@@ -125,7 +125,7 @@ public class Module4 {
         double[] xs = new double[3];
         double sum = 0, mean = 0, variance = 0, deviation = 0;
         for (int i = 0; i < 3; i++) {
-            xs[i] = GetNumber.scanDouble("Number " + (i + 1) + ": ");
+            xs[i] = NumberScanner.scanDouble("Number " + (i + 1) + ": ");
             sum += xs[i];
         }
         mean = sum / 3;
