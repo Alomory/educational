@@ -1,3 +1,5 @@
+package com.garylkz.c3013.lab5;
+
 public class Task1 {
   public static int factorial(int n) throws IllegalArgumentException {
     if (n < 0) throw new IllegalArgumentException();

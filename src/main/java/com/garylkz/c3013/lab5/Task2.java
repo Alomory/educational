@@ -1,3 +1,5 @@
+package com.garylkz.c3013.lab5;
+
 public class Task2 {
   public static void main(String[] args) {
     Queue q = new Queue();

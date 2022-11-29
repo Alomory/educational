@@ -1,3 +1,5 @@
+package com.garylkz.c3013.lab5;
+
 import java.util.Deque;
 import java.util.ArrayDeque;
 
