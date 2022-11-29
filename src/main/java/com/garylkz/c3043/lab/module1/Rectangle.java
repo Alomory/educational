@@ -1,6 +1,6 @@
 package com.garylkz.c3043.lab.module1;
 
-import com.garylkz.library.NumberScanner;
+import com.garylkz.library.NumberGetter;
 
 import java.util.function.Function;
 
@@ -40,7 +40,7 @@ public class Rectangle {
 
     public static void main(String[] args) {
         Function<Number, Boolean> rules = n -> n.intValue() > 0;
-        NumberScanner ns = new NumberScanner("Positive number only", rules);
+        NumberGetter ns = new NumberGetter("Positive number only", rules);
         double length = ns.get("Enter the length of rectangle: ").doubleValue();
         double width = ns.get("Enter the width of rectangle: ").doubleValue();
 

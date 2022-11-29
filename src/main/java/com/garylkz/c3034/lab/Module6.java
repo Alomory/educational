@@ -1,7 +1,7 @@
 package com.garylkz.c3034.lab;
 
 import com.garylkz.library.Dumpster;
-import com.garylkz.library.NumberScanner;
+import com.garylkz.library.NumberGetter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Module6 {
         int i, p, n, j;
         p = n = j = 0;
         while (true) {
-            i = NumberScanner.scanInt("Next int: ");
+            i = NumberGetter.scanInt("Next int: ");
             if (i > 0) {
                 p += 1;
             } else if (i < 0) {
@@ -46,8 +46,8 @@ public class Module6 {
         int i, j;
         boolean c;
         do {
-            i = NumberScanner.scanInt("First int: ");
-            j = NumberScanner.scanInt("Second int: ");
+            i = NumberGetter.scanInt("First int: ");
+            j = NumberGetter.scanInt("Second int: ");
             c = (i > j);
             if (c) {
                 System.out.println("First integer must be smaller than the second one\n");

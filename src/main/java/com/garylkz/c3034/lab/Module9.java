@@ -1,7 +1,7 @@
 package com.garylkz.c3034.lab;
 
 import com.garylkz.library.Dumpster;
-import com.garylkz.library.NumberScanner;
+import com.garylkz.library.NumberGetter;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -37,7 +37,7 @@ public class Module9 {
     // Activity 4 requirements
     private static double[] read_Input() {
         double[] scores = new double[5];
-        for (int i = 0; i < 5; ) scores[i] = NumberScanner.scanDouble("Score " + ++i + ": ");
+        for (int i = 0; i < 5; ) scores[i] = NumberGetter.scanDouble("Score " + ++i + ": ");
         return scores;
     }
 

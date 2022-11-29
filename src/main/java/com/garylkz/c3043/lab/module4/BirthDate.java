@@ -1,7 +1,7 @@
 package com.garylkz.c3043.lab.module4;
 
 import com.garylkz.c3043.lab.module3.Date;
-import com.garylkz.library.NumberScanner;
+import com.garylkz.library.NumberGetter;
 
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ public class BirthDate {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Name: ");
         this.name = scanner.nextLine();
-        NumberScanner numberScanner = new NumberScanner();
+        NumberGetter numberScanner = new NumberGetter();
         int birthDay = numberScanner.getInt("Birth day: ");
         int birthMonth = numberScanner.getInt("Birth month: ");
         int birthYear = numberScanner.getInt("Birth year: ");

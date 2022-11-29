@@ -10,7 +10,7 @@ takes place.Use this qualifier to differentiate the assignment of each of variab
 Note:1mile=1.609344 km
  */
 
-import com.garylkz.library.NumberScanner;
+import com.garylkz.library.NumberGetter;
 
 public class Distance {
     private double miles;
@@ -42,7 +42,7 @@ public class Distance {
     }
 
     public static void main(String[] args) {
-        NumberScanner scanner = new NumberScanner();
+        NumberGetter scanner = new NumberGetter();
         double miles = scanner.get("Enter the distance in miles: ").doubleValue();
         Distance distance = new Distance(miles);
         distance.overview();
