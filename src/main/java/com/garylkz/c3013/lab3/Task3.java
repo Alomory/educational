@@ -17,7 +17,7 @@ public class Task3 {
                 System.out.println("lol");
             }
         }
-        Task2 intStack = new Task2();
+        Task2 intStack = new Task2(next.length());
         Arrays.stream(next.split("")).forEach(i -> intStack.push(Integer.parseInt(i)));
         int sum = 0, power = 0;
         while (!intStack.isEmpty()) sum += (intStack.pop() * (Math.pow(2, power++)));
