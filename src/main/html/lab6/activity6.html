@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Activity 6</title>
+        <script type="text/javascript">
+            if (document.addEventListener) {
+                document.addEventListener('contextmenu', e => e.preventDefault(), false)
+            } else {
+                document.attachEvent('oncontextmenu', () => window.event.returnValue = false)
+            }
+        </script>
+    </head>
+</html>

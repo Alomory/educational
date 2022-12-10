@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Activity 7</title>
+        <script type="text/javascript">
+            rows = prompt("Row count?")
+            cols = prompt("Col count?")
+            if (["", null].includes(rows)) rows = 10
+            if (["", null].includes(cols)) cols = 10
+            function matrix(r, c) {
+                output = "<table border='1' width='500' cellspacing='0' cellpadding='5'>"
+                for (i=1;i<=r;i++) {
+                    output+="<tr>"
+                    j = 1
+                    while (j<=c) output+="<td>"+(i*j++)+"</td>"
+                    output+="</tr>"
+                }
+                output+="</table>"
+                document.write(output)
+            }
+            matrix(rows, cols)
+        </script>
+    </head>
+    <body></body>
+</html>
