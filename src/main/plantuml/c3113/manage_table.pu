@@ -1,0 +1,27 @@
+@startuml Manage Table
+
+title Manage Table
+
+actor Customer
+box System
+    entity Interface
+    database Tables
+end box
+
+loop Customer not seated
+    Customer -> Interface ++ : Get table list
+    activate Customer
+    Interface -> Tables ++ : Get table list
+    return Table list
+    return Table list
+    |||
+    alt Table available
+        Customer -> Interface ++ : Select table
+        Interface -> Tables ++ : Update table list
+        return Table list
+        return table list
+        deactivate Customer
+    end
+end
+
+@enduml

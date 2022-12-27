@@ -1,0 +1,47 @@
+@startuml Prepare Food
+
+title Prepare Food
+
+actor Chef
+actor Customer
+actor "Waiter / Cashier" as Useless
+box Kitchen
+    participant Food
+end box
+box System
+    entity Interface
+    database "Order List" as Orders
+end box
+
+activate Interface
+Interface --> Chef ++ : Notify order 
+Chef -> Interface: Get order
+Interface -> Orders ++ : Get order
+return Order
+Interface --> Chef: Order
+
+|||
+
+loop for each food in Order
+    note left Food: Prepare food
+    Chef -> Food ** : <<Create Food>>
+    activate Food
+    Food -> Food: Prepare food
+
+    note left Orders: Update order status
+    Chef -> Interface -- : Complete order
+    Interface -> Orders ++ : Update
+    Orders -> Orders: Update
+    return Response
+
+    Interface -> Useless ++ : Notify Waiter
+
+    Useless -> Food: Get food
+    Food --> Useless -- : Food
+
+    Useless -> Customer ++ : Serve food
+    deactivate Useless
+    deactivate Customer
+end
+
+@enduml
