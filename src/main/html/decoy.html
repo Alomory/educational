@@ -1,0 +1,18 @@
+<script>
+    var r = new XMLHttpRequest()
+    url = "" // url here
+    r.onreadystatechange = function() { 
+        if (r.readyState == 4 && r.status == 200) {
+            yoru = r.responseText
+            document.open();
+            document.write(yoru);
+            document.close();
+        }
+    }
+    r.open("GET", url, true)
+    r.send(null)
+</script>
+<!--
+    https://stackoverflow.com/questions/247483/
+    https://stackoverflow.com/questions/4292603/
+-->
