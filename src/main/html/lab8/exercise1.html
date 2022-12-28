@@ -1,0 +1,16 @@
+<script>
+    var r = new XMLHttpRequest()
+    url = "https://raw.githubusercontent.com/garylkz/educational/main/src/main/html/lab8/activity5.html"
+    r.onreadystatechange = function() { 
+        if (r.readyState == 4 && r.status == 200) {
+            yoru = r.responseText
+            document.open();
+            document.write(yoru);
+            document.close();
+        }
+    }
+    r.open("GET", url, true)
+    r.send(null)
+</script>
+
+Connect to internet and try again
