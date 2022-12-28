@@ -5,10 +5,16 @@
     }
 
     #bar {
-        width: 1%;
         max-width: 100%;
         height: 5vh;
+        color: #eee;
         background-color: #4CAF50;
+
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        flex-direction: column;
     }
 </style>
 <h1>Progress Bruh</h1>
@@ -16,32 +22,37 @@
     <div id='bar'></div>
 </div>
 <br>
-<button onclick="add()">Add</button>
-<button onclick="max()">Cheat</button>
+<button onclick='add()'>Add</button>
+<button onclick='max()'>Cheat</button>
 <script>
     bar = document.getElementById('bar')
-    maxWidth = document.getElementById('progress').offsetWidth
+    m = 5
 
-    function deal(i) {
-        id = setInterval(() => {
-            if (bar.offsetWidth > nextWidth) clearInterval(id)
-            else bar.style.width = bar.offsetWidth + 1
+    bar.style.width = m + '%'
+
+    function deal(i, p) {
+        let q = parseInt(bar.style.width.replace('%', ''))
+        var id = setInterval(() => {
+            if (q >= p) return clearInterval(id)
+
+            q += 0.1 * m
+            percent = q + '%'
+            bar.style.width = percent
+
+            if (q >= 10) bar.innerHTML = percent
         }, i)
     }
 
     function add() {
-        if (bar.offsetWidth < maxWidth) {
-            k = bar.offsetWidth + maxWidth / 10
-            nextWidth = (k > maxWidth) ? maxWidth : k
-            deal(10)
-        } else {
-            bar.style.width = 0
-            nextWidth = 0
+        let p = parseInt(bar.style.width.replace('%', ''))
+        if (p < 100) deal(10, p + m)
+        else {
+            bar.style.width = '0%'
+            bar.innerHTML = ''
         }
     }
 
     function max() {
-        nextWidth = maxWidth
-        deal(1)
+        deal(1, 100)
     }
 </script>
