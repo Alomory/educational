@@ -142,7 +142,7 @@ SHOW GRANTS FOR user04;
 
 \! echo "\nAs user user04, update selling price for a sale with sales_reference 900006 using UPDATE statement:\n"
 
-\! mysql -u user04 -pu04@ser -D exercise -e "UPDATE Sales SET sales_amount = 55000 WHERE sales_reference = 900006" || true
+\! mysql -u user04 -pu04@ser -D exercise -e "UPDATE Sales SET sales_amount = 55000 WHERE sales_reference = 900006"
 
 \! echo "\nReceived an error message indicating that user04 do not have the necessary privileges to update the Sales table since they only has the SELECT privilege on the Sales table."
 
