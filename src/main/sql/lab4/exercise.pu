@@ -1,0 +1,32 @@
+@startuml Data dictionary for Training and Certification System
+
+hide circle
+
+entity Branch {
+  branch_id INT(3) PRIMARY KEY
+  --
+  branch_name VARCHAR(50) NOT NULL
+  branch_city VARCHAR(30)
+  branch_state VARCHAR(30)
+}
+
+entity Salesman {
+  sales_id INT(5) PRIMARY KEY AUTO_INCREMENT
+  --
+  sales_name VARCHAR(50) NOT NULL
+  sales_dob DATE
+  sales_branch INT(3) NOT NULL <<FK>>
+}
+
+entity Sales {
+  sales_reference INT(8) PRIMARY KEY AUTO_INCREMENT
+  --
+  sales_date DATE NOT NULL
+  sales_amount DECIMAL(9,2)
+  sales_id INT(5) NOT NULL <<FK>>
+}
+
+Salesman }|--|| Branch
+Sales }o--|| Salesman
+
+@enduml
