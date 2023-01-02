@@ -1,0 +1,27 @@
+@startuml Patient Registration
+
+left to right direction
+
+actor Patient
+actor Nurse
+
+rectangle PatientData
+rectangle WardData
+
+Patient -- Nurse : \
+**1** give ward data → \n\
+← **10** give ward number
+
+Nurse -- PatientData: \
+**2** register_patient(patient_data) → \n\
+← **3** <Response> \n\
+**6** set_ward(ward_number) → \n\
+← **7** <Response>
+
+Nurse -- WardData: \
+**4** get_ward() → \n\
+← **5** List<Ward> \n\
+**8** update_ward(ward_number) → \n\
+← **9** <Response>
+
+@enduml

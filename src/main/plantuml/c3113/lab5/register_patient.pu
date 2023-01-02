@@ -1,0 +1,38 @@
+@startuml Patient Registration
+
+autonumber
+
+actor Patient
+actor Nurse
+
+box System
+participant PatientData
+participant WardData
+endbox 
+
+activate Patient 
+
+Patient -> Nurse ++ : give data 
+
+Nurse -> PatientData ++ : register_patient(patient_data)
+return <Response>
+
+Nurse -> WardData ++ : get_ward()
+return List<Ward>
+
+note left PatientData
+After registering, the nurse can 
+give the ward number to the patient 
+or the nurse can do it later if no ward 
+is available at that time.
+end note
+
+alt ward available
+    Nurse -> PatientData ++ : set_ward(ward_number)
+    return <Response>
+    Nurse -> WardData ++ : update_ward(ward_number)
+    return <Response>
+    return give ward number
+end
+
+@enduml

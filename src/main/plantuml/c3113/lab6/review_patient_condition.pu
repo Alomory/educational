@@ -1,0 +1,27 @@
+@startuml Patient Condition Review
+
+left to right direction
+
+actor Doctor
+
+rectangle PatientData
+
+Doctor -- PatientData: \
+**1** get_patient_data() → \n\
+← **2** <PatientCondition> \n\
+<PatientAllergy> \n\
+<MedicalHistory> \n\n\
+\
+**3** update_treatment(treatment_info) → \n\
+← **4** <Response> \n\n\
+\
+**5** update_patient_condition(condition) → \n\
+← **6** <Response> \n\n\
+\
+**7** update_patient_data(condition, allergy, medical_history) → \n\
+← **8** <Response> \n\n\
+\
+**9** assign_medicine(patient, List<Medicine>) → \n\
+← **10** <Response>
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml Patient Condition Review
+
+autonumber
+
+actor Doctor
+
+box System
+participant PatientData
+participant MedicineData
+endbox
+
+activate Doctor 
+
+Doctor -> PatientData ++ : get_patient_data()
+return <PatientCondition> \n\
+<PatientAllergy> \n<MedicalHistory>
+
+Doctor -> PatientData ++ : update_treatment(treatment_info)
+return <Response>
+
+Doctor -> PatientData ++ : \
+update_patient_data(condition, allergy, medical_history)
+return <Response>
+
+Doctor -> MedicineData ++ : \
+assign_medicine(patient, List<Medicine>)
+return <Response>
+
+@enduml
