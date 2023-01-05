@@ -1,0 +1,74 @@
+@startuml
+
+entity profile {
+  prfid VARCHAR(30) PRIMARY KEY
+  ---
+  loginid VARCHAR(15) UNIQUE NOT NULL
+  prfname VARCHAR(55) NOT NULL
+  prfdob VARCHAR(55) NOT NULL
+  prfaddr1 VARCHAR(55)
+  prfaddr2 VARCHAR(55)
+  prfstate VARCHAR(30)
+  prfpostcode INT(5)
+  prfHPNo VARCHAR(15) NOT NULL
+  prfPassportNo VARCHAR(20)
+  prfemail VARCHAR(30) NOT NULL
+  prfpwd VARCHAR(12) NOT NULL
+}
+
+entity airport {
+  airportcode VARCHAR(10) PRIMARY KEY
+  ---
+  airportname VARCHAR(45) NOT NULL
+  city VARCHAR(30)
+  country VARCHAR(30)
+}
+
+entity airplane {
+  airplanecode VARCHAR(30) PRIMARY KEY
+  airportcode VARCHAR(10) NOT NULL
+  ---
+  airlinename VARCHAR(50) NOT NULL
+  manufactured VARCHAR(50)
+  seatcapacity INT(30)
+}
+
+entity flight {
+  flightno VARCHAR(15) PRIMARY KEY
+  airportcode VARCHAR(10) NOT NULL
+  airplanecode VARCHAR(30) NOT NULL
+  ---
+  departfrom VARCHAR(30)
+  arrivalto VARCHAR(30)
+}
+
+entity flightdetails {
+  flightno VARCHAR(15) NOT NULL
+  ---
+  departuredate DATE NOT NULL
+  ticketprice DECIMAL(9,2)
+  departtime TIME
+  arrivaltime TIME
+  duration INT
+  seatavailability INT
+}
+
+entity booking {
+  bookingid VARCHAR(15) PRIMARY KEY
+  prfid VARCHAR(30) NOT NULL
+  flightno VARCHAR(15) NOT NULL
+  ---
+  bookingdate DATE
+  departuredate DATE NOT NULL
+  bookingstatus VARCHAR(30)
+}
+
+'TODO: fix multiplicity
+profile |o--o| booking
+airport |o--o| airplane
+airplane |o--o| flight
+flight |o--o| airport
+flight |o--o| flightdetails
+flight |o--o| booking
+
+@enduml
