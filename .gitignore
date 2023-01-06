@@ -1,5 +1,8 @@
 .idea/
+.theia/
+
 archive/
 target/
 test/
+
 *.class
