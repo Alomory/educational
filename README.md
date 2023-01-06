@@ -5,22 +5,16 @@ Generally assignments
 ## Structure
 
 ```
-Educational/src/main/ 
-├── java 
-│   ├── c3034 
-│   │   ├── lab 
-│   │   └── ... 
+educational/ 
+├── course_folder
+│
+├── course_folder 
+│
+├── src/main/java/ 
+|   |
+│   ├── course_folder 
+|   |
 │   └── ... 
-├── html 
-│   └── ... 
+|
 └── ... 
 ```
-
-## Java 
-
-Usually, running `Test.java` will do the job, unless otherwise specified. 
-Oh and, there's a library made for no reason (probably).
-
-`com.thisgary.library` - 
-Contain esoteric methods. 
-General static methods are stored in `Dumpster`.
