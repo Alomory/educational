@@ -1,0 +1,19 @@
+* {
+    font-family: 'Fredoka One';
+    font-size: x-large;
+}
+
+.cat-bg {
+    /* dimmed */
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('https://wallpapers.com/images/file/cute-aesthetic-pc-cookie-cats-0b7si9eggc2g1d22.jpg');
+}
+
+.card-img-top {
+    height: 20vw;
+    object-fit: cover;
+}
+
+.img-fluid {
+    object-fit: cover;
+}
