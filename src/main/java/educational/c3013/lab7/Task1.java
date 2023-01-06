@@ -163,5 +163,6 @@ public class Task1 {
         b.display(b.root);
         System.out.println("\n Delete Node with Two children (10)) :" + b.delete(10));
         b.display(b.root);
+        System.out.println();
     }
 }
