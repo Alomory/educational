@@ -1,0 +1,65 @@
+@startuml
+
+entity itemcategory {
+  **iccode INTEGER**
+  ---
+  icdescription VARCHAR(255)
+}
+
+entity item {
+  itmcode VARCHAR(5) <FK>
+  iccode INTEGER <FK>
+  ---
+  itmdesc VARCHAR(255)
+  avgmthlyusage DECIMAL(10,2)
+  reorderlevel INTEGER
+  reorderqty INTEGER
+}
+
+entity itemstock {
+  **itmcode VARCHAR(5)**
+  ---
+  stkcountdate DATE
+  qtystock DECIMAL(10,2)
+  stkcountstatus VARCHAR(255)
+}
+
+entity supplier {
+  **suppid INTEGER**
+  ---
+  suppname VARCHAR(255)
+  suppemail VARCHAR(255)
+  suppofficeno VARCHAR(255)
+  supphpno VARCHAR(255)
+}
+
+entity itemsupplier {
+  itmcode VARCHAR(5) <FK>
+  suppid INTEGER <FK>
+  ---
+  totqtysupptodate DECIMAL(10,2)
+  firstdatesupply DATE
+  lastdatesupply DATE
+  stdprice DECIMAL(10,2)
+  discount DECIMAL(10,2)
+  minorderqty INTEGER
+  maxorderqty INTEGER
+}
+
+entity supplieraddress {
+  **suppaddid INTEGER**
+  suppid INTEGER <FK>
+  ---
+  addr1 VARCHAR(255)
+  city VARCHAR(255)
+  postcode VARCHAR(255)
+  state VARCHAR(255)
+}
+
+itemcategory ||--|{ item
+item ||--|| itemstock
+supplier ||--|| itemsupplier
+itemsupplier ||--|{ supplieraddress
+itemsupplier }|--|{ itemstock
+
+@enduml
