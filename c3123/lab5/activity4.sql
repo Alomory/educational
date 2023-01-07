@@ -25,6 +25,8 @@ VALUES
     ('PQ-4570', 'P35', 36.00),
     ('MM-120E', 'P23', 250.00);
 
+SELECT * FROM prodvendor;
+
 SELECT p1.prcode, p1.prpricing, p1.prvendor
 FROM prodvendor p1 
 JOIN (
