@@ -1,0 +1,50 @@
+@startuml
+
+entity Organiser {
+  **organiser_id INT**
+  ---
+  name VARCHAR(255)
+  address VARCHAR(255)
+  postcode INT
+  state VARCHAR(255)
+  contact_person VARCHAR(255)
+  contact_number INT
+  email_address VARCHAR(255)
+}
+
+entity Conference {
+  **conference_id INT**
+  venue_id INT <FK>
+  organiser_id INT <FK>
+  ---
+  name VARCHAR(255)
+  conference_date DATE
+  year INT
+  conference_theme VARCHAR(255)
+}
+
+entity Venue {
+  **venue_id INT**
+  ---
+  venue_name VARCHAR(255)
+  street VARCHAR(255)
+  city VARCHAR(255)
+  state VARCHAR(255)
+  post_code INT
+}
+
+entity Participant {
+  **participant_id INT**
+  conference_id INT <FK>
+  ---
+  name VARCHAR(255)
+  designation VARCHAR(255)
+  company VARCHAR(255)
+  fees DECIMAL(9,2)
+}
+
+Conference }|--|| Venue
+Conference }|--|{ Participant
+Conference }|--|| Organiser
+
+@enduml
