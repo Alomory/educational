@@ -1,0 +1,21 @@
+@startuml
+
+(*) --> Scheduled
+--> [get information] Patient
+--> [get condition] Treatment
+--> [get medical history, allergy] Medication
+--> (*)
+
+'Scheduled: get_patients()
+
+'Patient: get_condition()
+'Patient: get_allergy()
+'Patient: get_medical_history()
+
+'Treatment: set_treatment()
+'Treatment: set_condition()
+
+'Medication: set_medications()
+'Medication: set_medical_history()
+
+@enduml
