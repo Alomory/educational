@@ -1,0 +1,39 @@
+@startsalt
+scale 4
+{
+{* Catrivia }
+
+Cat breed
+
+{
+    {+
+        <&image>
+        cat
+        description
+        .
+    } |
+            {+
+        <&image>
+        cat
+        description
+        .
+    }
+}
+{
+    {+
+        <&image>
+        cat
+        description
+        .
+    } |
+    {+
+        <&image>
+        cat
+        description
+        .
+    }
+}
+
+{* Catrivia | <&browser> <&browser> <&browser> }
+}
+@endsalt

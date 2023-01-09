@@ -1,0 +1,25 @@
+@startsalt
+scale 4
+{
+{* Catrivia | Home About [Contact] }
+
+About Us
+
+Info about developers that nobody cares
+
+.
+
+Contact Us
+
+{#
+    Phone | 0123456789
+    Email | a@b.c
+}
+
+Description about contacts
+
+.
+
+{* Catrivia | <&browser> <&browser> <&browser> }
+}
+@endsalt

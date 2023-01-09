@@ -1,0 +1,54 @@
+@startsalt
+scale 4
+{
+{* Catrivia | [Home] About Contact }
+
+Slogan
+Introduction
+[down]
+
+--
+
+{
+    {+
+        <&image>
+        article
+        description
+        [link]
+    } |
+            {+
+        <&image>
+        article
+        description
+        [link]
+    } |
+    {+
+        <&image>
+        article
+        description
+        [link]
+    } |
+    {+
+        <&image>
+        more
+        description
+        [link]
+    } |
+}
+
+--
+
+{+
+    comment
+    "username"
+    {+
+        comments
+        .
+        .
+    }
+    [comment]
+}
+
+{* Catrivia | <&browser> <&browser> <&browser> }
+}
+@endsalt

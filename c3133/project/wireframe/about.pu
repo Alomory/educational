@@ -1,0 +1,17 @@
+@startsalt
+scale 4
+{
+{* Catrivia | Home [About] Contact }
+
+Cats
+
+<&video>
+
+paragraphs about cats
+.
+.
+.
+
+{* Catrivia | <&browser> <&browser> <&browser> }
+}
+@endsalt

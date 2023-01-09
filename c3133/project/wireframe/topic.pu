@@ -1,0 +1,39 @@
+@startsalt
+scale 4
+{
+{* Catrivia }
+
+topic
+
+{
+    {+
+        <&image>
+        article
+        description
+        [link]
+    } |
+            {+
+        <&image>
+        article
+        description
+        [link]
+    }
+}
+{
+    {+
+        <&image>
+        article
+        description
+        [link]
+    } |
+    {+
+        <&image>
+        article
+        description
+        [link]
+    }
+}
+
+{* Catrivia | <&browser> <&browser> <&browser> }
+}
+@endsalt

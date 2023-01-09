@@ -1,0 +1,15 @@
+@startsalt
+scale 4
+{
+{* Catrivia }
+
+title
+
+<&image>
+
+article content
+.
+
+{* Catrivia | <&browser> <&browser> <&browser> }
+}
+@endsalt

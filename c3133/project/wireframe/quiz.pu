@@ -1,0 +1,25 @@
+@startsalt
+scale 4
+{
+{* Catrivia }
+
+quiz
+
+1. q1 
+{ [a1] | [a2] | [a3] | [a4] }
+
+.
+
+2. q2
+{ [a1] | [a2] | [a3] | [a4] }
+
+.
+
+3. q3
+{ [a1] | [a2] | [a3] | [a4] }
+
+.
+
+{* Catrivia | <&browser> <&browser> <&browser> }
+}
+@endsalt
