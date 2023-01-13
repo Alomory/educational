@@ -54,25 +54,6 @@ CREATE TABLE OrderDetails (
 
 DESC OrderDetails;
 
-/*
-To normalize these tables to 1NF, we would need to make sure that each table contains only atomic (indivisible) values in its columns. This means that each column in a table should contain only a single value and not a list of values or a concatenation of values. In this case, it appears that the tables are already in 1NF as all the columns contain atomic values.
-
-Next, we would move to normalize them to 2NF. In order to be in 2NF, a table must meet the following two criteria:
-
-1. It must be in 1NF.
-2. It must not have any partial dependencies. A partial dependency occurs when a non-primary key column is dependent on only a part of a composite primary key.
-3. It appears that none of the tables in this database have partial dependencies. The primary keys in the Salesman, Customer, Order, and OrderDetails tables are unique and non-repeating, and no other column in these tables is dependent on only a part of the primary key. Therefore, these tables are already in 2NF
-
-Finally, we would move to normalize them to 3NF. To be in 3NF, a table must meet the following two criteria:
-
-1. It must be in 2NF.
-2. It must not have any transitive dependencies. A transitive dependency occurs when a non-primary key column is dependent on another non-primary key column.
-3. It appears that none of the tables in this database have transitive dependencies. All non-primary key columns are dependent on the primary key only. Therefore, these tables are already in 3NF.
-
-In summary, this database is already in 3NF because it has no partial or transitive dependencies. That is all non-key columns are dependent on the primary key, and all the data in the table are atomic values.
-No further normalization is needed in this case.
-*/
-
 INSERT INTO Salesman (salesman_id, name, hp, telephone, email) 
 VALUES
     ('S001', 'John Smith', '012-345-6789', '012-345-6789', 'john.smith@email.com'),
