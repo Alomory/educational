@@ -39,7 +39,7 @@ CREATE TABLE Product (
 CREATE TABLE Vendor (
     vendor_id INTEGER PRIMARY KEY,
     vendor_name VARCHAR(100),
-    vendor_contact_name VARCHAR(50),
+    contact_name VARCHAR(50),
     vendor_email VARCHAR(100),
     vendor_phone VARCHAR(20)
 );
