@@ -5,46 +5,46 @@ scale 5
 hide circle
 
 entity Orders {
-**order_id** INTEGER
-customer_id INTEGER
-product_id INTEGER
-vendor_id INTEGER
----
-quantity INTEGER
-order_total DECIMAL
-order_status VARCHAR(20)
+    +**order_id** INTEGER
+    +customer_id INTEGER
+    +product_id INTEGER
+    +vendor_id INTEGER
+    ---
+    +quantity INTEGER
+    +order_total DECIMAL
+    +order_status VARCHAR(20)
 }
 
 entity Note {
-**note_id** INTEGER
-order_id INTEGER
----
-note_content VARCHAR(255)
+    +**note_id** INTEGER
+    +order_id INTEGER
+    ---
+    +note_content VARCHAR(255)
 }
 
 entity Customer {
-    **customer_id** INTEGER PRIMARY KEY
+    +**customer_id** INTEGER PRIMARY KEY
     ---
-    customer_name VARCHAR(50)
-    customer_email VARCHAR(100)
-    customer_phone VARCHAR(20)
+    +customer_name VARCHAR(50)
+    +customer_email VARCHAR(100)
+    +customer_phone VARCHAR(20)
 }
 
 entity Product {
-    **product_id** INTEGER PRIMARY KEY
+    +**product_id** INTEGER PRIMARY KEY
     ---
-    product_name VARCHAR(100)
-    product_price DECIMAL
-    product_stock INTEGER
+    +product_name VARCHAR(100)
+    +product_price DECIMAL
+    +product_stock INTEGER
 }
 
 entity Vendor {
-    **vendor_id** INTEGER PRIMARY KEY
+    +**vendor_id** INTEGER PRIMARY KEY
     ---
-    vendor_name VARCHAR(100)
-    vendor_contact_name VARCHAR(50)
-    vendor_email VARCHAR(100)
-    vendor_phone VARCHAR(20)
+    +vendor_name VARCHAR(100)
+    +vendor_contact_name VARCHAR(50)
+    +vendor_email VARCHAR(100)
+    +vendor_phone VARCHAR(20)
 }
 
 Orders }|--|| Customer

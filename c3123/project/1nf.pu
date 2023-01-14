@@ -18,7 +18,8 @@ entity Orders {
 entity Customer {
     +**customer_id** INTEGER PRIMARY KEY
     ---
-    +customer_name VARCHAR(50)
+    +first_name VARCHAR(50)
+    +last_name VARCHAR(50)
     +customer_email VARCHAR(100)
     +customer_phone VARCHAR(20)
 }
