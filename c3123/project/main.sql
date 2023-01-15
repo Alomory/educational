@@ -42,12 +42,14 @@ CREATE TABLE Orders (
 );
 
 CREATE TABLE Customer (
-    customer_id INTEGER PRIMARY KEY,
+    customer_id INTEGER 
+        PRIMARY KEY
+        AUTO_INCREMENT,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     customer_email VARCHAR(100),
     customer_phone VARCHAR(20)
-);
+) AUTO_INCREMENT = 100;
 
 CREATE TABLE Product (
     product_id INTEGER PRIMARY KEY,
@@ -81,7 +83,8 @@ ALTER TABLE Orders
 DROP COLUMN note_content;
 
 CREATE TABLE Note (
-    note_id INTEGER PRIMARY KEY 
+    note_id INTEGER 
+        PRIMARY KEY 
         AUTO_INCREMENT,
     order_id INTEGER,
     note_content VARCHAR(255),
@@ -112,6 +115,7 @@ FROM Orders;
 -- Create view customer 
 CREATE VIEW VendorInfo AS
 SELECT 
+    vendor_id AS id,
     vendor_name AS vendor, 
     contact_name AS contact, 
     vendor_email AS email, 
@@ -120,11 +124,13 @@ FROM Vendor;
 
 CREATE VIEW CustomerOrder AS
 SELECT 
+    order_id AS id,
     (
         SELECT vendor_name 
         FROM Vendor v 
         WHERE v.vendor_id = o.vendor_id
     ) AS vendor,
+    customer_id AS customer,    
     CONCAT((
         SELECT product_name 
         FROM Product p 
@@ -150,12 +156,12 @@ CREATE USER customer IDENTIFIED BY 'password';
 
 GRANT SELECT, UPDATE, DELETE ON Customer TO customer;
 
-GRANT UPDATE ON Orders TO customer; 
-
 GRANT SELECT ON VendorInfo TO customer; 
 GRANT SELECT ON CustomerOrder TO customer;
 
 -- Create common
+GRANT SELECT ON Note TO vendor, customer;
+
 DELIMITER //
 
 CREATE PROCEDURE UpdateOrderStatus (
@@ -203,13 +209,13 @@ GRANT EXECUTE ON PROCEDURE Project.DeleteNote TO vendor, customer;
 FLUSH PRIVILEGES;
 
 -- Insert test data
-INSERT INTO Customer (customer_id, first_name, last_name, customer_email, customer_phone) 
+INSERT INTO Customer (first_name, last_name, customer_email, customer_phone) 
 VALUES 
-    (101, 'Fatimah Azzahra', 'Salleh', 'fatima@gmail.com', '0144392833'),
-    (102, 'John', 'Scott', 'johnscott@yahoo.com', '0123329443'),
-    (103, 'Mia', 'Hilton', 'sarah123@gmail.com', '0133942228'),
-    (104, 'Ahmad Ali', 'Ahmed', 'ali.ahmed@gmail.com', '0194385294'),
-    (105, 'Kiew', 'Ah-Kun', 'kiew.ahkun@gmail.com', '0189932718');
+    ('Fatimah Azzahra', 'Salleh', 'fatima@gmail.com', '0144392833'),
+    ('John', 'Scott', 'johnscott@yahoo.com', '0123329443'),
+    ('Mia', 'Hilton', 'sarah123@gmail.com', '0133942228'),
+    ('Ahmad Ali', 'Ahmed', 'ali.ahmed@gmail.com', '0194385294'),
+    ('Kiew', 'Ah-Kun', 'kiew.ahkun@gmail.com', '0189932718');
 
 INSERT INTO Product (product_id, product_name, product_price, product_stock)
 VALUES 
@@ -232,7 +238,7 @@ VALUES
     (102, 119, 110, 3, 60.00, 'Delivered'),
     (102, 531, 111, 2, 530.00, 'Cancelled'),
     (103, 361, 112, 8, 40.00, 'Cancelled'),
-    (105, 191, 113, 1, 48.00, 'Delivered'),
+    (100, 191, 113, 1, 48.00, 'Delivered'),
     (101, 198, 114, 5, 225.00, 'Delivered'),
     (104, 119, 110, 10, 550.00, 'Pending');
 
