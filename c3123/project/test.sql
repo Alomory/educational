@@ -38,7 +38,7 @@ FROM Vendor;
 -- WHERE vendor = 110
 -- ORDER BY datetime;
 
-\! mysql -u customer -ppassword -D Project -e "SELECT * FROM VendorOrder WHERE vendor = 110 ORDER BY datetime"
+\! mysql -u vendor -ppassword -D Project -e "SELECT * FROM VendorOrder WHERE vendor = 110 ORDER BY datetime"
 \! echo "if try to execute as customer (impossible but still)"
 \! mysql -u customer -ppassword -D Project -e "SELECT * FROM VendorOrder WHERE vendor = 110 ORDER BY datetime"
 
