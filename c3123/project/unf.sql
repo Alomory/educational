@@ -6,6 +6,7 @@ CREATE TABLE OrderSystem (
     order_id INTEGER PRIMARY KEY,
     quantity INTEGER,
     order_total DECIMAL,
+    order_datetime DATETIME,
     order_status VARCHAR(20),
     customer_name VARCHAR(50),
     customer_email VARCHAR(100),

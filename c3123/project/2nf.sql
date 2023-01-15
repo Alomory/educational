@@ -9,6 +9,8 @@ CREATE TABLE Orders (
     vendor_id INTEGER NOT NULL,
     quantity INTEGER,
     order_total DECIMAL,
+    order_datetime DATETIME
+        DEFAULT CURRENT_TIMESTAMP,
     order_status VARCHAR(20),
     note_content VARCHAR(255),
     FOREIGN KEY (customer_id) 
