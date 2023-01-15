@@ -22,7 +22,13 @@ CREATE TABLE OrderSystem (
     note_content VARCHAR(500)
 );
 
+\! echo "OrderSystem"
+DESC OrderSystem;
+
 -- 1NF
+\! echo ""
+\! echo "1NF"
+
 DROP TABLE OrderSystem;
 
 CREATE TABLE Orders (
@@ -41,6 +47,9 @@ CREATE TABLE Orders (
     note_content VARCHAR(255)
 );
 
+\! echo "Orders"
+DESC Orders;
+
 CREATE TABLE Customer (
     customer_id INTEGER 
         PRIMARY KEY
@@ -51,12 +60,18 @@ CREATE TABLE Customer (
     customer_phone VARCHAR(20)
 ) AUTO_INCREMENT = 100;
 
+\! echo "Customer"
+DESC Customer;
+
 CREATE TABLE Product (
     product_id INTEGER PRIMARY KEY,
     product_name VARCHAR(100),
     product_price DECIMAL,
     product_stock INTEGER
 );
+
+\! echo "Product"
+DESC Product;
 
 CREATE TABLE Vendor (
     vendor_id INTEGER PRIMARY KEY,
@@ -66,7 +81,13 @@ CREATE TABLE Vendor (
     vendor_phone VARCHAR(20)
 );
 
+\! echo "Vendor"
+DESC Vendor;
+
 -- 2NF
+\! echo ""
+\! echo "2NF"
+
 ALTER TABLE Orders
 ADD FOREIGN KEY (customer_id) 
     REFERENCES Customer(customer_id) 
@@ -78,7 +99,13 @@ ADD FOREIGN KEY (vendor_id)
     REFERENCES Vendor(vendor_id) 
     ON UPDATE CASCADE;
 
+\! echo "Orders (2NF)"
+DESC Orders;
+
 -- 3NF
+\! echo ""
+\! echo "3NF"
+
 ALTER TABLE Orders
 DROP COLUMN note_content;
 
@@ -92,6 +119,9 @@ CREATE TABLE Note (
         REFERENCES Orders(order_id)
 );
 
+\! echo "Orders (3NF)"
+DESC Orders;
+
 -- Create view vendor 
 CREATE VIEW CustomerInfo AS
 SELECT 
@@ -100,6 +130,9 @@ SELECT
     customer_email AS email, 
     customer_phone AS phone
 FROM Customer;
+
+\! echo "CustomerInfo"
+DESC CustomerInfo;
 
 CREATE VIEW VendorOrder AS
 SELECT 
@@ -112,6 +145,9 @@ SELECT
     order_status AS status
 FROM Orders;
 
+\! echo "VendorOrder"
+DESC VendorOrder;
+
 -- Create view customer 
 CREATE VIEW VendorInfo AS
 SELECT 
@@ -121,6 +157,9 @@ SELECT
     vendor_email AS email, 
     vendor_phone AS phone
 FROM Vendor;
+
+\! echo "VendorInfo"
+DESC VendorInfo;
 
 CREATE VIEW CustomerOrder AS
 SELECT 
@@ -135,6 +174,9 @@ SELECT
     order_datetime AS datetime,
     order_status AS status
 FROM Orders o;
+
+\! echo "CustomerOrder"
+DESC CustomerOrder;
 
 -- Create user vendor
 DROP USER IF EXISTS vendor;
@@ -154,6 +196,10 @@ GRANT SELECT, UPDATE, DELETE ON Customer TO customer;
 
 GRANT SELECT ON VendorInfo TO customer; 
 GRANT SELECT ON CustomerOrder TO customer;
+
+SELECT user 
+FROM mysql.user
+WHERE user NOT LIKE 'mysql.%';
 
 -- Create common
 GRANT SELECT ON Note TO vendor, customer;
@@ -204,6 +250,11 @@ GRANT EXECUTE ON PROCEDURE Project.DeleteNote TO vendor, customer;
 
 FLUSH PRIVILEGES;
 
+SELECT ROUTINE_NAME 
+FROM information_schema.ROUTINES 
+WHERE ROUTINE_TYPE = 'PROCEDURE' 
+AND ROUTINE_SCHEMA = 'Project';
+
 -- Insert test data
 INSERT INTO Customer (first_name, last_name, customer_email, customer_phone) 
 VALUES 
@@ -213,6 +264,8 @@ VALUES
     ('Ahmad Ali', 'Ahmed', 'ali.ahmed@gmail.com', '0194385294'),
     ('Kiew', 'Ah-Kun', 'kiew.ahkun@gmail.com', '0189932718');
 
+SELECT * FROM Customer;
+
 INSERT INTO Product (product_id, product_name, product_price, product_stock)
 VALUES 
     (198, 'Batik Bag', 45.00, 10),
@@ -221,6 +274,8 @@ VALUES
     (361, 'Kinder Bueno', 5.00, 50),
     (191, 'Bootcut Pant', 48.00, 40);
 
+SELECT * FROM Project;
+
 INSERT INTO Vendor (vendor_id, vendor_name, contact_name, vendor_email, vendor_phone)
 VALUES 
     (110, 'Malayan Bazaar', 'Farah Syatira', 'farah_syat@gmail.com', '0128936621'),
@@ -228,6 +283,8 @@ VALUES
     (112, 'Thirty-One', 'Sam Jackson', 'jackson@gmail.com', '0173627710'),
     (113, 'Park Lane', 'Malek Hakem', 'malek.work@gmail.com', '0166438721'),
     (114, 'Ruby Ribbon', 'Puteri Mawar', 'rosputeri@gmail.com', '0173392784');
+
+SELECT * FROM Vendor;
 
 INSERT INTO Orders (customer_id, product_id, vendor_id, quantity, order_total, order_status)
 VALUES
@@ -238,6 +295,8 @@ VALUES
     (101, 198, 114, 5, 225.00, 'Delivered'),
     (104, 119, 110, 10, 550.00, 'Pending');
 
+SELECT * FROM Orders;
+
 INSERT INTO Note (note_id, order_id, note_content)
 VALUES
     (121, 1, 'Red color'),
@@ -245,3 +304,5 @@ VALUES
     (123, 3, 'Black color, M size'),
     (124, 4, 'Big size with purse'),
     (125, 5, 'Blue color');
+
+SELECT * FROM Note;
