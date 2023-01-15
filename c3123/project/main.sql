@@ -134,6 +134,7 @@ VALUES
 -- Create view vendor 
 CREATE VIEW CustomerInfo AS
 SELECT 
+    customer_id AS id,
     CONCAT(first_name, ' ', last_name) AS name, 
     customer_email AS email, 
     customer_phone AS phone
@@ -141,6 +142,7 @@ FROM Customer;
 
 CREATE VIEW VendorOrder AS
 SELECT 
+    vendor_id AS vendor, 
     customer_id AS customer, 
     product_id AS product, 
     quantity, 
@@ -179,9 +181,7 @@ DROP USER IF EXISTS vendor;
 CREATE USER vendor IDENTIFIED BY 'password';
 
 GRANT INSERT, UPDATE, DELETE ON Vendor TO vendor;
-GRANT INSERT, UPDATE, DELETE ON Product TO vendor;
-
-GRANT UPDATE ON Orders TO vendor;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Product TO vendor;
 
 GRANT SELECT ON CustomerInfo TO vendor; 
 GRANT SELECT ON VendorOrder TO vendor; 
