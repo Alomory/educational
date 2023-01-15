@@ -124,12 +124,7 @@ FROM Vendor;
 
 CREATE VIEW CustomerOrder AS
 SELECT 
-    order_id AS id,
-    (
-        SELECT vendor_name 
-        FROM Vendor v 
-        WHERE v.vendor_id = o.vendor_id
-    ) AS vendor,
+    vendor_id AS vendor,
     customer_id AS customer,    
     CONCAT((
         SELECT product_name 
@@ -137,6 +132,7 @@ SELECT
         WHERE p.product_id = o.product_id
     ), " x", quantity) AS product,
     order_total AS total, 
+    order_datetime AS datetime,
     order_status AS status
 FROM Orders o;
 
