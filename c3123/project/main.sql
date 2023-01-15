@@ -89,48 +89,6 @@ CREATE TABLE Note (
         REFERENCES Orders(order_id)
 );
 
--- Insert test data
-INSERT INTO Customer (customer_id, first_name, last_name, customer_email, customer_phone) 
-VALUES 
-    (101, 'Fatimah Azzahra', 'Salleh', 'fatima@gmail.com', '0144392833'),
-    (102, 'John', 'Scott', 'johnscott@yahoo.com', '0123329443'),
-    (103, 'Mia', 'Hilton', 'sarah123@gmail.com', '0133942228'),
-    (104, 'Ahmad Ali', 'Ahmed', 'ali.ahmed@gmail.com', '0194385294'),
-    (105, 'Kiew', 'Ah-Kun', 'kiew.ahkun@gmail.com', '0189932718');
-
-INSERT INTO Product (product_id, product_name, product_price, product_stock)
-VALUES 
-    (198, 'Batik Bag', 45.00, 10),
-    (119, 'Zink', 55.00, 20),
-    (531, 'Hardcase Luggage', 265.00, 15),
-    (361, 'Kinder Bueno', 5.00, 50),
-    (191, 'Bootcut Pant', 48.00, 40);
-
-INSERT INTO Vendor (vendor_id, vendor_name, contact_name, vendor_email, vendor_phone)
-VALUES 
-    (110, 'Malayan Bazaar', 'Farah Syatira', 'farah_syat@gmail.com', '0128936621'),
-    (111, 'Artbeat Sdn. Bhd.', 'Angelina', 'angel@yahoo.com', '0123389462'),
-    (112, 'Thirty-One', 'Sam Jackson', 'jackson@gmail.com', '0173627710'),
-    (113, 'Park Lane', 'Malek Hakem', 'malek.work@gmail.com', '0166438721'),
-    (114, 'Ruby Ribbon', 'Puteri Mawar', 'rosputeri@gmail.com', '0173392784');
-
-INSERT INTO Orders (customer_id, product_id, vendor_id, quantity, order_total, order_status)
-VALUES
-    (102, 119, 110, 3, 60.00, 'Delivered'),
-    (102, 531, 111, 2, 530.00, 'Cancelled'),
-    (103, 361, 112, 8, 40.00, 'Cancelled'),
-    (105, 191, 113, 1, 48.00, 'Delivered'),
-    (101, 198, 114, 5, 225.00, 'Delivered'),
-    (104, 119, 110, 10, 550.00, 'Pending');
-
-INSERT INTO Note (note_id, order_id, note_content)
-VALUES
-    (121, 1, 'Red color'),
-    (122, 2, 'Pink color, Small size'),
-    (123, 3, 'Black color, M size'),
-    (124, 4, 'Big size with purse'),
-    (125, 5, 'Blue color');
-
 -- Create view vendor 
 CREATE VIEW CustomerInfo AS
 SELECT 
@@ -243,3 +201,45 @@ GRANT EXECUTE ON PROCEDURE Project.UpdateNote TO vendor, customer;
 GRANT EXECUTE ON PROCEDURE Project.DeleteNote TO vendor, customer;
 
 FLUSH PRIVILEGES;
+
+-- Insert test data
+INSERT INTO Customer (customer_id, first_name, last_name, customer_email, customer_phone) 
+VALUES 
+    (101, 'Fatimah Azzahra', 'Salleh', 'fatima@gmail.com', '0144392833'),
+    (102, 'John', 'Scott', 'johnscott@yahoo.com', '0123329443'),
+    (103, 'Mia', 'Hilton', 'sarah123@gmail.com', '0133942228'),
+    (104, 'Ahmad Ali', 'Ahmed', 'ali.ahmed@gmail.com', '0194385294'),
+    (105, 'Kiew', 'Ah-Kun', 'kiew.ahkun@gmail.com', '0189932718');
+
+INSERT INTO Product (product_id, product_name, product_price, product_stock)
+VALUES 
+    (198, 'Batik Bag', 45.00, 10),
+    (119, 'Zink', 55.00, 20),
+    (531, 'Hardcase Luggage', 265.00, 15),
+    (361, 'Kinder Bueno', 5.00, 50),
+    (191, 'Bootcut Pant', 48.00, 40);
+
+INSERT INTO Vendor (vendor_id, vendor_name, contact_name, vendor_email, vendor_phone)
+VALUES 
+    (110, 'Malayan Bazaar', 'Farah Syatira', 'farah_syat@gmail.com', '0128936621'),
+    (111, 'Artbeat Sdn. Bhd.', 'Angelina', 'angel@yahoo.com', '0123389462'),
+    (112, 'Thirty-One', 'Sam Jackson', 'jackson@gmail.com', '0173627710'),
+    (113, 'Park Lane', 'Malek Hakem', 'malek.work@gmail.com', '0166438721'),
+    (114, 'Ruby Ribbon', 'Puteri Mawar', 'rosputeri@gmail.com', '0173392784');
+
+INSERT INTO Orders (customer_id, product_id, vendor_id, quantity, order_total, order_status)
+VALUES
+    (102, 119, 110, 3, 60.00, 'Delivered'),
+    (102, 531, 111, 2, 530.00, 'Cancelled'),
+    (103, 361, 112, 8, 40.00, 'Cancelled'),
+    (105, 191, 113, 1, 48.00, 'Delivered'),
+    (101, 198, 114, 5, 225.00, 'Delivered'),
+    (104, 119, 110, 10, 550.00, 'Pending');
+
+INSERT INTO Note (note_id, order_id, note_content)
+VALUES
+    (121, 1, 'Red color'),
+    (122, 2, 'Pink color, Small size'),
+    (123, 3, 'Black color, M size'),
+    (124, 4, 'Big size with purse'),
+    (125, 5, 'Blue color');
