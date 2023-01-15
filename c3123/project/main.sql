@@ -6,6 +6,8 @@ CREATE TABLE OrderSystem (
     order_id INTEGER PRIMARY KEY,
     quantity INTEGER,
     order_total DECIMAL,
+    order_datetime DATETIME
+        DEFAULT CURRENT_TIMESTAMP,
     order_status VARCHAR(20),
     customer_name VARCHAR(50),
     customer_email VARCHAR(100),
@@ -32,8 +34,10 @@ CREATE TABLE Orders (
     vendor_id INTEGER,
     quantity INTEGER,
     order_total DECIMAL,
+    order_datetime DATETIME
+        DEFAULT CURRENT_TIMESTAMP,
     order_status VARCHAR(20)
-        CHECK (order_status IN ("Paid", "Not Paid")),
+        CHECK (order_status IN ("Delivered", "Pending", "Cancelled")),
     note_content VARCHAR(255)
 );
 
@@ -77,7 +81,8 @@ ALTER TABLE Orders
 DROP COLUMN note_content;
 
 CREATE TABLE Note (
-    note_id INTEGER PRIMARY KEY,
+    note_id INTEGER PRIMARY KEY 
+        AUTO_INCREMENT,
     order_id INTEGER,
     note_content VARCHAR(255),
     FOREIGN KEY (order_id) 
@@ -109,14 +114,14 @@ VALUES
     (113, 'Park Lane', 'Malek Hakem', 'malek.work@gmail.com', '0166438721'),
     (114, 'Ruby Ribbon', 'Puteri Mawar', 'rosputeri@gmail.com', '0173392784');
 
-INSERT INTO Orders (order_id, customer_id, product_id, vendor_id, quantity, order_total, order_status)
+INSERT INTO Orders (customer_id, product_id, vendor_id, quantity, order_total, order_status)
 VALUES
-    (1, 102, 119, 110, 3, 60.00, 'Paid'),
-    (2, 102, 531, 111, 2, 530.00, 'Paid'),
-    (3, 103, 361, 112, 8, 40.00, 'Paid'),
-    (4, 105, 191, 113, 1, 48.00, 'Paid'),
-    (5, 101, 198, 114, 5, 225.00, 'Paid'),
-    (6, 104, 119, 110, 10, 550.00, 'Not Paid');
+    (102, 119, 110, 3, 60.00, 'Delivered'),
+    (102, 531, 111, 2, 530.00, 'Cancelled'),
+    (103, 361, 112, 8, 40.00, 'Cancelled'),
+    (105, 191, 113, 1, 48.00, 'Delivered'),
+    (101, 198, 114, 5, 225.00, 'Delivered'),
+    (104, 119, 110, 10, 550.00, 'Pending');
 
 INSERT INTO Note (note_id, order_id, note_content)
 VALUES
@@ -126,7 +131,7 @@ VALUES
     (124, 4, 'Big size with purse'),
     (125, 5, 'Blue color');
 
--- Create user view
+-- Create view vendor 
 CREATE VIEW CustomerInfo AS
 SELECT 
     CONCAT(first_name, ' ', last_name) AS name, 
@@ -134,7 +139,18 @@ SELECT
     customer_phone AS phone
 FROM Customer;
 
-CREATE VIEW VendorDetail AS
+CREATE VIEW VendorOrder AS
+SELECT 
+    customer_id AS customer, 
+    product_id AS product, 
+    quantity, 
+    order_total AS total, 
+    order_datetime AS datetime,
+    order_status AS status
+FROM Orders;
+
+-- Create view customer 
+CREATE VIEW VendorInfo AS
 SELECT 
     vendor_name AS vendor, 
     contact_name AS contact, 
@@ -142,20 +158,88 @@ SELECT
     vendor_phone AS phone
 FROM Vendor;
 
--- Create user
+CREATE VIEW CustomerOrder AS
+SELECT 
+    (
+        SELECT vendor_name 
+        FROM Vendor v 
+        WHERE v.vendor_id = o.vendor_id
+    ) AS vendor,
+    CONCAT((
+        SELECT product_name 
+        FROM Product p 
+        WHERE p.product_id = o.product_id
+    ), " x", quantity) AS product,
+    order_total AS total, 
+    order_status AS status
+FROM Orders o;
+
+-- Create user vendor
 DROP USER IF EXISTS vendor;
 CREATE USER vendor IDENTIFIED BY 'password';
-GRANT SELECT, UPDATE, DELETE ON Product TO vendor;
-GRANT SELECT ON CustomerDetail TO vendor; 
-GRANT SELECT, UPDATE, DELETE ON Vendor TO vendor;
-GRANT SELECT, UPDATE ON Orders TO vendor;
-GRANT SELECT, UPDATE, DELETE ON Note TO vendor;
 
+GRANT INSERT, UPDATE, DELETE ON Vendor TO vendor;
+GRANT INSERT, UPDATE, DELETE ON Product TO vendor;
+
+GRANT UPDATE ON Orders TO vendor;
+
+GRANT SELECT ON CustomerInfo TO vendor; 
+GRANT SELECT ON VendorOrder TO vendor; 
+
+-- Create user customer
 DROP USER IF EXISTS customer;
 CREATE USER customer IDENTIFIED BY 'password';
+
 GRANT SELECT, UPDATE, DELETE ON Customer TO customer;
-GRANT SELECT ON VendorDetail TO customer; 
-GRANT SELECT, UPDATE ON Orders TO customer; 
-GRANT SELECT, UPDATE, DELETE ON Note TO customer;
+
+GRANT UPDATE ON Orders TO customer; 
+
+GRANT SELECT ON VendorInfo TO customer; 
+GRANT SELECT ON CustomerOrder TO customer;
+
+-- Create common
+DELIMITER //
+
+CREATE PROCEDURE UpdateOrderStatus (
+    IN orderId INT, 
+    IN orderStatus VARCHAR(20)
+)
+BEGIN
+    UPDATE Orders
+    SET order_status = orderStatus
+    WHERE order_id = orderId;
+END //
+
+CREATE PROCEDURE CreateNote (
+    IN orderId INT, 
+    IN noteContent VARCHAR(255)
+)
+BEGIN
+    INSERT INTO Note (order_id, note_content)
+    VALUES (orderId, noteContent);
+END //
+
+CREATE PROCEDURE UpdateNote (
+    IN noteId INT, 
+    IN noteContent VARCHAR(255)
+)
+BEGIN
+    UPDATE Note
+    SET note_content = noteContent
+    WHERE note_id = noteId;
+END //
+
+CREATE PROCEDURE DeleteNote (IN noteId INT)
+BEGIN
+    DELETE FROM Note
+    WHERE note_id = noteId;
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE Project.UpdateOrderStatus TO vendor, customer;
+GRANT EXECUTE ON PROCEDURE Project.CreateNote TO vendor, customer;
+GRANT EXECUTE ON PROCEDURE Project.UpdateNote TO vendor, customer;
+GRANT EXECUTE ON PROCEDURE Project.DeleteNote TO vendor, customer;
 
 FLUSH PRIVILEGES;
