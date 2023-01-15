@@ -55,7 +55,7 @@ CREATE TABLE Product (
 CREATE TABLE Vendor (
     vendor_id INTEGER PRIMARY KEY,
     vendor_name VARCHAR(100),
-    contact_name VARCHAR(50),
+    contact_name VARCHAR(50), 
     vendor_email VARCHAR(100),
     vendor_phone VARCHAR(20)
 );
@@ -126,11 +126,27 @@ VALUES
     (124, 4, 'Big size with purse'),
     (125, 5, 'Blue color');
 
+-- Create user view
+CREATE VIEW CustomerInfo AS
+SELECT 
+    CONCAT(first_name, ' ', last_name) AS name, 
+    customer_email AS email, 
+    customer_phone AS phone
+FROM Customer;
+
+CREATE VIEW VendorDetail AS
+SELECT 
+    vendor_name AS vendor, 
+    contact_name AS contact, 
+    vendor_email AS email, 
+    vendor_phone AS phone
+FROM Vendor;
+
 -- Create user
 DROP USER IF EXISTS vendor;
 CREATE USER vendor IDENTIFIED BY 'password';
 GRANT SELECT, UPDATE, DELETE ON Product TO vendor;
-GRANT SELECT ON Customer TO vendor; -- Update to view
+GRANT SELECT ON CustomerDetail TO vendor; 
 GRANT SELECT, UPDATE, DELETE ON Vendor TO vendor;
 GRANT SELECT, UPDATE ON Orders TO vendor;
 GRANT SELECT, UPDATE, DELETE ON Note TO vendor;
@@ -138,7 +154,7 @@ GRANT SELECT, UPDATE, DELETE ON Note TO vendor;
 DROP USER IF EXISTS customer;
 CREATE USER customer IDENTIFIED BY 'password';
 GRANT SELECT, UPDATE, DELETE ON Customer TO customer;
-GRANT SELECT ON Vendor TO customer; -- Update to view
+GRANT SELECT ON VendorDetail TO customer; 
 GRANT SELECT, UPDATE ON Orders TO customer; 
 GRANT SELECT, UPDATE, DELETE ON Note TO customer;
 
