@@ -5,8 +5,8 @@ title Manage Bill
 actor Customer
 actor Cashier
 box System
-    entity Interface
-    database "Order List" as Orders
+    participant Interface
+    participant "Order List" as Orders
 end box
 
 activate Customer
@@ -14,11 +14,9 @@ activate Customer
 Customer -> Interface ++ : Pay bill
 alt Cash
     Interface -> Cashier ++ : Notify
-    Customer -> Cashier: Give cash
-    alt Has changes
-        Cashier --> Customer: Return changes
-    end
-    Cashier -> Interface: Update status
+    Cashier -> Interface: Update received cash
+    Interface -> Interface: Calculate 
+    Interface -> Interface: Update status
     Interface --> Cashier : Response
     Cashier --> Customer -- : Response
 else E-Wallet / online banking
@@ -29,15 +27,10 @@ else E-Wallet / online banking
 end
 
 Interface -> Orders ++ : Update order
-Orders -> Orders: Delete order
 return Response
 
-alt Request physical receipt
-    Customer -> Cashier ++ : Request receipt
-    Cashier -> Cashier: Open receipt
-    return Receipt
-else Request digital receipt
-    Customer -> Interface: Request receipt
+alt Request receipt
+    Cashier -> Interface: Request receipt
     Interface -> Interface: Generate receipt
     return Receipt
 end
