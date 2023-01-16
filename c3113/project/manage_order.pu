@@ -1,14 +1,14 @@
-@startuml Make Order
+@startuml Manage Order
 
-title Make Order
+title Manage Order
 
 actor "Customer /\nWaiter /\nCashier" as Maker
 actor Chef
 box System
-    entity Interface
+    participant Interface
     participant Order
-    database "Food List" as Foods
-    database "Order List" as Orders
+    participant "Food List" as Foods
+    participant "Order List" as Orders
 end box
 
 activate Maker
