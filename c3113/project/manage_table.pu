@@ -4,8 +4,8 @@ title Manage Table
 
 actor Customer
 box System
-    entity Interface
-    database Tables
+    participant Interface
+    participant Tables
 end box
 
 loop Customer not seated
