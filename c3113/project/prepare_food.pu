@@ -14,8 +14,8 @@ note left Interface: System received new order
 activate Interface
 Interface --> Chef ++ : Notify  
 alt Low stock
-    Chef -> Interface: Update menu availability 
-    Interface -> Foods ++ : Update menu
+    Chef -> Interface: Update menu  
+    Interface -> Foods ++ : Update 
     return Response
 end
 Chef -> Interface: Get order
