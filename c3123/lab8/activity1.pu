@@ -37,7 +37,7 @@ entity EmployeeWork {
     charge_amount DECIMAL(10,2)
 }
 
-Employee ||--|| Job
+Employee }|--|| Job
 EmployeeWork }|--|| Employee
 EmployeeWork }|--|| Work
 Work }|--|| Project
