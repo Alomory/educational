@@ -1,0 +1,38 @@
+@startuml
+
+entity Project {
+    * **project_id** VARCHAR(20) PRIMARY KEY
+    ---
+    project_name VARCHAR(255)
+}
+
+entity Employee {
+    * **employee_id** VARCHAR(20) PRIMARY KEY
+    * job_id VARCHAR(20)
+    ---
+    employee_name VARCHAR(255)
+    join_date DATE
+}
+
+entity Job {
+    * **job_id** VARCHAR(20) PRIMARY KEY
+    ---
+    job_description VARCHAR(255)
+    rate_hour DECIMAL(10,2)
+    work_hour INT
+    charge_amount DECIMAL(10,2)
+}
+
+entity Work {
+    * **work_id** VARCHAR(20) PRIMARY KEY
+    * project_id VARCHAR(20)
+    * employee_id VARCHAR(20)
+    ---
+    assign_date DATE
+}
+
+Work ||--|{ Project
+Work }|--|{ Employee
+Employee }|--|| Job
+
+@enduml
