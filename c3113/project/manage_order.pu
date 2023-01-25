@@ -5,7 +5,7 @@ title Manage Order
 actor "Customer /\nWaiter /\nCashier" as Maker
 actor Chef
 box System
-    participant Interface
+
     participant Order
     participant "Food List" as Foods
     participant "Order List" as Orders
@@ -14,51 +14,52 @@ end box
 activate Maker
 
 alt Request Menu
-    Maker -> Interface ++ : Get menu
+    Maker -> Foods ++ : Get menu
 
-    Interface -> Foods ++ : Get food list
-    return Food list
+    
+    return Menu
     |||
-    Interface -> Interface : Render menu
+    Foods -> Foods : Render menu
     return Menu
 end
 
 |||
 
-Maker -> Interface ++ : Make order
 
-Interface -> Order ** : <<Create Order>>
+
+Maker -> Order ** : <<Create Order>>
+Maker -> Order ++ : Make order
 activate Order
 
 Order -> Order: Set metadata
 
 loop Order not confirmed
     alt Modify order
-        Maker -> Interface: Modify order
+        Maker -> Order: Modify order
 
         alt Add food
-            Interface -> Order: Add food
+            Maker -> Order: Add food
         else Remove food
-            Interface -> Order: Remove food
+            Maker -> Order: Remove food
         end
 
         Order -> Order: Update order
     else Confirm order
-        Maker -> Interface: Confirm order
-            Interface -> Order: Confirm order
+        Maker -> Order: Confirm order
+            
                 Order -> Orders ++ : Order
                     Orders -> Orders : Update order list
                 return Response
-            Order --> Interface: Response
-        Interface --> Chef: Notify
-        Interface --> Maker: Response
+            Order -->  Chef: Notify
+        Order --> Maker: Response
     else Cancel order
-        Maker -> Interface: Cancel Order
+        Maker -> Order: Cancel Order
         
-        Interface -> Order !! : <<Destroy Order>>
+        Order -> Order !! : <<Destroy Order>>
+        return Order Canceled
         deactivate Order
 
-        return Response
+        
     end
 end
 
