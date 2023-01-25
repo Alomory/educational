@@ -1,40 +1,65 @@
-@startuml Manage Bill
+@startuml Manage Order
 
-title Manage Bill 
+title Manage Order
 
-actor Customer
-actor Cashier
+actor "Customer /\nWaiter /\nCashier" as Maker
+actor Chef
 box System
-    participant Interface
+
+    participant Order
+    participant "Food List" as Foods
     participant "Order List" as Orders
 end box
 
-activate Customer
+activate Maker
 
-Customer -> Interface ++ : Pay bill
-alt Cash
-    Interface -> Cashier ++ : Notify
-    Cashier -> Interface: Update received cash
-    Interface -> Interface: Calculate 
-    Interface -> Interface: Update status
-    Interface --> Cashier : Response
-    Cashier --> Customer -- : Response
-else E-Wallet / online banking
-    Customer -> Interface: Make payment
-    Interface -> Interface: Check payment
-    Interface -> Interface: Update status
-    Interface --> Customer: Response
+alt Request Menu
+    Maker -> Foods ++ : Get menu
+
+    
+    return Food list
+    |||
+    Foods -> Foods : Render menu
+    return Menu
 end
 
-Interface -> Orders ++ : Update order
-return Response
+|||
 
-alt Request receipt
-    Cashier -> Interface: Request receipt
-    Interface -> Interface: Generate receipt
-    return Receipt
+Maker -> Order ++ : Make order
+
+
+activate Order
+
+Order -> Order: Set metadata
+
+loop Order not confirmed
+    alt Modify order
+        Maker -> Order: Modify order
+
+        alt Add food
+            Maker -> Order: Add food
+        else Remove food
+            Maker -> Order: Remove food
+        end
+
+        Order -> Order: Update order
+    else Confirm order
+        Maker -> Order: Confirm order
+            Order -> Order: Confirm order
+                Order -> Orders ++ : Order
+                    Orders -> Orders : Update order list
+                return Response
+            Order -->  Chef: Notify
+        Order --> Maker: Response
+    else Cancel order
+        Maker -> Order: Cancel Order
+        
+        Order -> Maker !! : <<Order Canceled>>
+        deactivate Order
+
+    end
 end
 
-deactivate Customer
+deactivate Maker
 
 @enduml
